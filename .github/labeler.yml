@@ -1,0 +1,37 @@
+# Configuration for automatic labeling of pull requests based on file paths
+
+# Hardware related changes
+hardware:
+  - 'hardware-design/**/*'
+  - 'firmware/**/*'
+
+# Software/code changes  
+software:
+  - 'software/**/*'
+  - '*.py'
+  - '*.js'
+  - '*.ts'
+
+# Documentation changes
+documentation:
+  - 'docs/**/*'
+  - '*.md'
+  - 'README.md'
+
+# CI/CD and automation
+automation:
+  - '.github/**/*'
+  - 'automation/**/*'
+
+# Dependencies
+dependencies:
+  - 'requirements*.txt'
+  - 'package*.json'
+  - 'pyproject.toml'
+
+# Configuration files
+config:
+  - '*.json'
+  - '*.yml'
+  - '*.yaml'
+  - '*.toml'
