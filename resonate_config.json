@@ -1,0 +1,36 @@
+{
+  "rezonate": {
+    "name": "REZONATE Modular Wearable Instrument System",
+    "version": "1.0.0",
+    "auto_start_components": [
+      "performance-ui",
+      "bluetooth-orchestration",
+      "midi-mapping"
+    ],
+    "startup_delay_seconds": 2
+  },
+  "components": {
+    "performance-ui": {
+      "enabled": true,
+      "port": 3000,
+      "auto_restart": true
+    },
+    "bluetooth-orchestration": {
+      "enabled": true,
+      "scan_interval": 5,
+      "max_devices": 10
+    },
+    "midi-mapping": {
+      "enabled": true,
+      "default_mapping": "basic"
+    },
+    "hardware-monitor": {
+      "enabled": true,
+      "sensor_poll_rate": 100
+    },
+    "system-coordinator": {
+      "enabled": true,
+      "sync_interval": 1000
+    }
+  }
+}

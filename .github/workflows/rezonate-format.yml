@@ -1,0 +1,70 @@
+name: REZONATE Auto-format
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  format-code:
+    runs-on: ubuntu-latest
+    name: Auto-format REZONATE Code
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Install formatters
+        run: |
+          pip install black isort
+          npm install -g prettier
+          
+      - name: Format Python code
+        run: |
+          find . -name "*.py" -not -path "./venv/*" -not -path "./node_modules/*" | xargs black
+          find . -name "*.py" -not -path "./venv/*" -not -path "./node_modules/*" | xargs isort
+          
+      - name: Format JavaScript/TypeScript
+        run: |
+          find software/ -name "*.js" -o -name "*.ts" -o -name "*.jsx" -o -name "*.tsx" | xargs prettier --write
+          
+      - name: Format JSON and Markdown
+        run: |
+          find . -name "*.json" -not -path "./node_modules/*" | xargs prettier --write
+          find . -name "*.md" -not -path "./node_modules/*" | xargs prettier --write
+          
+      - name: Check for changes
+        id: verify-changed-files
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Commit formatted code
+        if: steps.verify-changed-files.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "chore(format): auto-format REZONATE codebase" || exit 0
+          
+      - name: Push changes
+        if: steps.verify-changed-files.outputs.changed == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
