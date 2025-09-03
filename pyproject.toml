@@ -1,0 +1,210 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ballsdeepnit"
+version = "0.1.0"
+description = "The Deepest, Most Savage Bot Framework in the Game"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "ballsDeepnit Team", email = "team@ballsdeepnit.dev"}
+]
+keywords = ["automation", "bot", "framework", "performance"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.10"
+
+# Performance-optimized dependencies with version constraints
+dependencies = [
+    # Core web framework - using faster alternatives
+    "fastapi>=0.104.0",  # Faster than Flask for async operations
+    "uvicorn[standard]>=0.24.0",  # High-performance ASGI server
+    
+    # File watching with optimizations
+    "watchdog>=3.0.0",
+    
+    # Audio/MIDI with performance focus
+    "python-rtmidi>=1.5.0",
+    "sounddevice>=0.4.6",
+    "numpy>=1.24.0",  # Required for audio processing optimizations
+    
+    # Speech recognition with performance considerations
+    "SpeechRecognition>=3.10.0",
+    "pyaudio>=0.2.11",  # Better performance than default audio backend
+    
+    # Process management - using faster alternatives
+    "uvloop>=0.19.0; sys_platform != 'win32'",  # Faster event loop on Unix
+    "asyncio-mqtt>=0.16.0",  # Async MQTT for better performance
+    
+    # Communication optimized
+    "aiohttp>=3.9.0",  # Async HTTP client
+    "websockets>=12.0",  # Fast WebSocket implementation
+    
+    # Serial communication
+    "pyserial>=3.5",
+    
+    # Environment and configuration
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.5.0",  # Fast data validation with Rust backend
+    "pydantic-settings>=2.1.0",
+    
+    # Performance monitoring
+    "psutil>=5.9.0",
+    "memory-profiler>=0.61.0",
+    
+    # Caching for performance
+    "redis>=5.0.0",
+    "diskcache>=5.6.0",
+    
+    # JSON optimization
+    "orjson>=3.9.0",  # Fastest JSON library for Python
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-benchmark>=4.0.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",  # Faster linter than flake8
+    "mypy>=1.7.0",
+    "pre-commit>=3.6.0",
+]
+performance = [
+    "line-profiler>=4.1.0",
+    "py-spy>=0.3.14",
+    "memory-profiler>=0.61.0",
+    "locust>=2.17.0",  # Load testing
+]
+monitoring = [
+    "prometheus-client>=0.19.0",
+    "grafana-api>=1.0.3",
+    "structlog>=23.2.0",
+]
+
+[project.entry-points."ballsdeepnit.plugins"]
+# Plugin entry points will be registered here
+
+[project.scripts]
+ballsdeepnit = "ballsdeepnit.cli:main"
+ballsdeepnit-dashboard = "ballsdeepnit.dashboard:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+# Black formatting configuration
+[tool.black]
+line-length = 88
+target-version = ['py310']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+# Ruff linting configuration (faster than flake8)
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "N",  # pep8-naming
+    "UP", # pyupgrade
+    "S",  # bandit security
+    "PERF", # perflint performance
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "S101",  # use of assert detected
+]
+
+[tool.ruff.per-file-ignores]
+"tests/*" = ["S101"]  # Allow assert statements in tests
+
+# MyPy configuration
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+# Pytest configuration
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=ballsdeepnit",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--benchmark-only",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "performance: marks tests as performance tests",
+]
+
+# Coverage configuration
+[tool.coverage.run]
+source = ["src/ballsdeepnit"]
+omit = [
+    "*/tests/*",
+    "*/conftest.py",
+    "*/__main__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
