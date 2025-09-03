@@ -1,0 +1,12 @@
+{
+  "name": "rezonate-performance-ui",
+  "version": "1.0.0",
+  "description": "REZONATE performance-ui component",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'Build script ready for implementation'",
+    "test": "echo 'Tests ready for implementation'"
+  },
+  "keywords": ["rezonate", "wearable", "instrument", "midi"],
+  "license": "MIT"
+}
