@@ -1,0 +1,443 @@
+{
+  "timestamp": "262916.645041565",
+  "total_zip_files": 31,
+  "files_analyzed": {
+    "milestone_03_gui_overlay.zip": {
+      "total_files": 1,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "milestones/03_gui_overlay.md"
+      ],
+      "has_unique_code": false
+    },
+    "HydiGUI_PhaseX_SimulacraShell_IdentityProjection.zip": {
+      "total_files": 3,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "phaseX/SimulacraShell.java",
+        "phaseX/IdentityProjectionEngine.java",
+        "phaseX/README.md"
+      ],
+      "has_unique_code": false
+    },
+    "HydiGUI_Phase11_MemoryDecay_RegenerativeFeedback.zip": {
+      "total_files": 3,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "phase11/MemoryDecay.java",
+        "phase11/RegenerativeFeedback.java",
+        "phase11/README.md"
+      ],
+      "has_unique_code": false
+    },
+    "ballsdeepnit_updated_docs.zip": {
+      "total_files": 2,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 2,
+      "file_list": [
+        "README.md",
+        "milestones/01_bootstrap.md"
+      ],
+      "has_unique_code": false
+    },
+    "protoforge-secure-dashboard.zip": {
+      "total_files": 13,
+      "python_files": 5,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 2,
+      "file_list": [
+        "run.py",
+        "requirements.txt",
+        "robots.txt",
+        ".env.example",
+        "app/__init__.py",
+        "app/routes.py",
+        "app/forms.py",
+        "app/models.py",
+        "app/static/style.css",
+        "app/templates/base.html"
+      ],
+      "has_unique_code": true
+    },
+    "HydiGUI_Phase7_MoodDrivenReactiveControl.zip": {
+      "total_files": 2,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "phase7/MoodDrivenEngine.java",
+        "phase7/README.md"
+      ],
+      "has_unique_code": false
+    },
+    "protoflow.zip": {
+      "total_files": 5,
+      "python_files": 0,
+      "js_files": 5,
+      "config_files": 0,
+      "doc_files": 0,
+      "file_list": [
+        "src/index.js",
+        "src/scaffolder.js",
+        "src/udpValidator.js",
+        "src/taskScheduler.js",
+        "src/bluetoothHub.js"
+      ],
+      "has_unique_code": true
+    },
+    "HydiGUI_Phase9_VisionLayer_PerceptionHook.zip": {
+      "total_files": 2,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "phase9/VisionLayer.java",
+        "phase9/README.md"
+      ],
+      "has_unique_code": false
+    },
+    "HydiGUI_enhanced.zip": {
+      "total_files": 2,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "src/hydi_gui/HydiGUI.java",
+        "src/hydi_gui/README.md"
+      ],
+      "has_unique_code": false
+    },
+    "Hydi_Phase_Omega_HydraInstinct_AutoDivergence.zip": {
+      "total_files": 3,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "phase_omega/HydraInstinctStack.java",
+        "phase_omega/AutoContextDivergenceEngine.java",
+        "phase_omega/README.md"
+      ],
+      "has_unique_code": false
+    },
+    "HydiGUI_scaffold.zip": {
+      "total_files": 2,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "src/hydi_gui/HydiGUI.java",
+        "src/hydi_gui/README.md"
+      ],
+      "has_unique_code": false
+    },
+    "hydi ziped.zip": {
+      "total_files": 65,
+      "python_files": 1,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 4,
+      "file_list": [
+        "launch_hydi.bat",
+        "hydi_toggle_scanner.py",
+        "Hydi_Core_With_Toggles.zip",
+        "Hydi_Phase_Psi_DreamSplice_MemoryDistortion.zip",
+        "Hydi_Phase_Omega_2_RecursiveSelfTuningLoop.zip",
+        "Hydi_Phase_Omega_HydraInstinct_AutoDivergence.zip",
+        "HydiGUI_PhaseX_SimulacraShell_IdentityProjection.zip",
+        "HydiGUI_Phase12_ThoughtGraph_NetworkedRecallAPI.zip",
+        "HydiGUI_Phase11_MemoryDecay_RegenerativeFeedback.zip",
+        "HydiGUI_Phase10_SynapticChain_DreamEngine.zip"
+      ],
+      "has_unique_code": true
+    },
+    "Hydi_Phase_Psi_DreamSplice_MemoryDistortion.zip": {
+      "total_files": 3,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "phase_psi/DreamSpliceEngine.java",
+        "phase_psi/MemoryDistortionFilter.java",
+        "phase_psi/README.md"
+      ],
+      "has_unique_code": false
+    },
+    "milestone_02_fusion_updated.zip": {
+      "total_files": 1,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "milestones/02_module_fusion.md"
+      ],
+      "has_unique_code": false
+    },
+    "HydiGUI_phase5_Voice_Log_ShellRouter.zip": {
+      "total_files": 5,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "src/hydi_gui/VoiceCommandInput.java",
+        "src/hydi_gui/LiveLogViewer.java",
+        "src/hydi_gui/SystemLauncher.java",
+        "src/hydi_gui/HydiGUI.java",
+        "src/hydi_gui/README_phase5.md"
+      ],
+      "has_unique_code": false
+    },
+    "HydiGUI_phase3_SelfHealing_JSON.zip": {
+      "total_files": 3,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "src/hydi_gui/CommandChain.java",
+        "src/hydi_gui/ChainRunner.java",
+        "src/hydi_gui/README_phase3.md"
+      ],
+      "has_unique_code": false
+    },
+    "HydiGUI_phase2_CommandChains.zip": {
+      "total_files": 3,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "src/hydi_gui/ShellDispatcher.java",
+        "src/hydi_gui/ChainRunner.java",
+        "src/hydi_gui/README_next.md"
+      ],
+      "has_unique_code": false
+    },
+    "Hydi_Phase_Omega_2_RecursiveSelfTuningLoop.zip": {
+      "total_files": 2,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "phase_omega_2/SelfTuningNeuralLoop.java",
+        "phase_omega_2/README.md"
+      ],
+      "has_unique_code": false
+    },
+    "ballsdeepnit_repo_flat_bundle.zip": {
+      "total_files": 8,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 3,
+      "file_list": [
+        "src/hydi_repl/CommandREPL.java",
+        "src/forgefinder/Placeholder.java",
+        "src/survybot/Placeholder.java",
+        "milestones/01_bootstrap.md",
+        "milestones/02_module_fusion.md",
+        "run_hydi.sh",
+        "run_hydi.bat",
+        "README.md"
+      ],
+      "has_unique_code": false
+    },
+    "FrankSync_Templates_MoodTriggers.zip": {
+      "total_files": 4,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 4,
+      "file_list": [
+        "notion_template.md",
+        "gdrive_structure.md",
+        "ventor_mood_integration.md",
+        "daily_sync_trigger.md"
+      ],
+      "has_unique_code": false
+    },
+    "HydiGUI_Phase10_SynapticChain_DreamEngine.zip": {
+      "total_files": 3,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "phase10/SynapticChain.java",
+        "phase10/DreamEngine.java",
+        "phase10/README.md"
+      ],
+      "has_unique_code": false
+    },
+    "HydiGUI_phase6_5_ChainScheduler_ContextMemory_CoreMerge.zip": {
+      "total_files": 3,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "phase6_5/ChainScheduler.java",
+        "phase6_5/ContextMemoryCore.java",
+        "README.md"
+      ],
+      "has_unique_code": false
+    },
+    "ballsdeepnit_full_bundle.zip": {
+      "total_files": 7,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 3,
+      "file_list": [
+        "ballsdeepnit/src/hydi_repl/CommandREPL.java",
+        "ballsdeepnit/src/forgefinder/Placeholder.java",
+        "ballsdeepnit/src/survybot/Placeholder.java",
+        "ballsdeepnit/milestones/01_bootstrap.md",
+        "ballsdeepnit/milestones/02_module_fusion.md",
+        "ballsdeepnit/run_hydi.sh",
+        "ballsdeepnit/README.md"
+      ],
+      "has_unique_code": false
+    },
+    "HydiGUI_Phase12_ThoughtGraph_NetworkedRecallAPI.zip": {
+      "total_files": 3,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "phase12/ThoughtGraph.java",
+        "phase12/NetworkedRecallAPI.java",
+        "phase12/README.md"
+      ],
+      "has_unique_code": false
+    },
+    "Hydi_Core_With_Toggles.zip": {
+      "total_files": 13,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "hydi_repl/__ENABLED__.toggle",
+        "shell_router/__ENABLED__.toggle",
+        "self_fix/__ENABLED__.toggle",
+        "tts_translate/__ENABLED__.toggle",
+        "command_scheduler/__ENABLED__.toggle",
+        "context_memory/__ENABLED__.toggle",
+        "milestones/__ENABLED__.toggle",
+        "experiments/dreamsplice/__ENABLED__.toggle",
+        "experiments/emotion_trigger/__ENABLED__.toggle",
+        "experiments/auto_divergence/__ENABLED__.toggle"
+      ],
+      "has_unique_code": false
+    },
+    "Full_DevOps_Toolkit.zip": {
+      "total_files": 4,
+      "python_files": 2,
+      "js_files": 0,
+      "config_files": 1,
+      "doc_files": 1,
+      "file_list": [
+        "install_wizard.py",
+        "requirements.txt",
+        "src/create_issue.py",
+        ".github/workflows/jira-sync.yml"
+      ],
+      "has_unique_code": true
+    },
+    "Frank_PM_Bot_Integrator.zip": {
+      "total_files": 2,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "frank_cortex/README.md",
+        "RunFrank.bat"
+      ],
+      "has_unique_code": false
+    },
+    "HydiGUI_phase6_5_UserPatternPrediction.zip": {
+      "total_files": 3,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "phase6_5/UserPatternAnalyzer.java",
+        "phase6_5/CommandSuggestionEngine.java",
+        "phase6_5/README.md"
+      ],
+      "has_unique_code": false
+    },
+    "Hydi_REPL_Full_Stack.zip": {
+      "total_files": 9,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 0,
+      "file_list": [
+        "src/CommandREPL.java",
+        "src/CommandGenerator.java",
+        "src/ShellType.java",
+        "src/ShellRouter.java",
+        "src/ShellExecutor.java",
+        "src/SelfFixer.java",
+        "src/SpeechEngine.java",
+        "src/DBHelper.java",
+        "src/LanguageManager.java"
+      ],
+      "has_unique_code": false
+    },
+    "HydiGUI_phase4_GUI_Editor_TTS.zip": {
+      "total_files": 5,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "src/hydi_gui/CommandChainEditor.java",
+        "src/hydi_gui/HydiGUI.java",
+        "src/hydi_gui/TTSStub.java",
+        "src/hydi_gui/MilestoneLogger.java",
+        "src/hydi_gui/README_phase4.md"
+      ],
+      "has_unique_code": false
+    },
+    "HydiGUI_ultraBundle.zip": {
+      "total_files": 4,
+      "python_files": 0,
+      "js_files": 0,
+      "config_files": 0,
+      "doc_files": 1,
+      "file_list": [
+        "src/hydi_gui/CommandBlockPane.java",
+        "src/hydi_gui/CommandRouter.java",
+        "src/hydi_gui/TTSStub.java",
+        "src/hydi_gui/README.md"
+      ],
+      "has_unique_code": false
+    }
+  }
+}
