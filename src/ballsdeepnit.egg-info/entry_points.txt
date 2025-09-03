@@ -1,0 +1,3 @@
+[console_scripts]
+ballsdeepnit = ballsdeepnit.cli:main
+ballsdeepnit-dashboard = ballsdeepnit.dashboard:main
