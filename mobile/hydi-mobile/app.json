@@ -1,0 +1,9 @@
+{
+  "name": "HydiMobile",
+  "displayName": "Hydi Mobile",
+  "version": "1.0.0",
+  "description": "Advanced AI REPL & Automation Framework Mobile App",
+  "main": "index.js",
+  "author": "ballsDeepnit Team",
+  "license": "MIT"
+}
