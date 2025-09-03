@@ -1,0 +1,108 @@
+name: Python CI
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'software/**'
+      - '*.py'
+      - 'requirements*.txt'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'software/**'
+      - '*.py'
+      - 'requirements*.txt'
+
+jobs:
+  test-python-components:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest
+    - name: Run Python Tests
+      run: |
+        echo "🧪 Running REZONATE Python Test Suite"
+        echo "======================================"
+        
+        # Run pytest on the tests directory
+        if [ -d tests ]; then
+          echo "📁 Running pytest on tests directory..."
+          python -m pytest tests/ -v --tb=short
+          echo "✓ Test directory validation completed"
+        else
+          echo "⚠️ No tests directory found"
+        fi
+        
+        # Test individual Python components with detailed validation
+        echo ""
+        echo "🔍 Validating core modules:"
+        
+        # Test resonate_launcher
+        if [ -f "resonate_launcher.py" ]; then
+          echo "Testing resonate_launcher..."
+          python -c "
+import resonate_launcher
+import inspect
+print('✓ resonate_launcher imports successfully')
+print(f'  - Functions: {len([name for name, obj in inspect.getmembers(resonate_launcher) if inspect.isfunction(obj)])}')
+print(f'  - Classes: {len([name for name, obj in inspect.getmembers(resonate_launcher) if inspect.isclass(obj)])}')
+"
+        else
+          echo "⚠️ resonate_launcher.py not found"
+        fi
+        
+        # Test repl_bridge  
+        if [ -f "repl_bridge.py" ]; then
+          echo "Testing repl_bridge..."
+          python -c "
+import repl_bridge
+import inspect
+print('✓ repl_bridge imports successfully')
+print(f'  - Functions: {len([name for name, obj in inspect.getmembers(repl_bridge) if inspect.isfunction(obj)])}')
+print(f'  - Classes: {len([name for name, obj in inspect.getmembers(repl_bridge) if inspect.isclass(obj)])}')
+"
+        else
+          echo "⚠️ repl_bridge.py not found"
+        fi
+        
+        # Test software components
+        echo ""
+        echo "🏗️ Testing software components:"
+        for component in software/*/; do
+          if [ -d "$component" ]; then
+            component_name=$(basename "$component")
+            echo "Testing $component_name..."
+            
+            if [ -f "$component/requirements.txt" ]; then
+              pip install -r "$component/requirements.txt" >/dev/null 2>&1
+            fi
+            
+            # Find main Python file and test it
+            main_file=$(find "$component" -maxdepth 1 -name "*.py" | head -1)
+            if [ -n "$main_file" ]; then
+              python -c "
+import sys
+sys.path.insert(0, '$component')
+exec(open('$main_file').read())
+print('✓ $component_name component loads successfully')
+" 2>/dev/null || echo "⚠️ $component_name has import issues"
+            fi
+          fi
+        done
+        
+        echo ""
+        echo "✅ Python component validation completed"

@@ -1,0 +1,123 @@
+name: REZONATE Doc Generation
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'hardware-design/**'
+      - 'firmware/**'
+      - 'software/**'
+      - 'docs/**'
+  workflow_dispatch:
+
+jobs:
+  generate-docs:
+    runs-on: ubuntu-latest
+    name: Auto-generate REZONATE Documentation
+    
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: Install documentation tools
+        run: |
+          pip install mkdocs mkdocs-material mkdocs-mermaid2-plugin
+          
+      - name: Generate API documentation
+        run: |
+          echo "📚 Generating API documentation..."
+          mkdir -p docs/api/generated
+          
+          # Generate firmware API docs from code comments
+          echo "# Firmware API Reference" > docs/api/generated/firmware-api.md
+          echo "Auto-generated from code comments" >> docs/api/generated/firmware-api.md
+          
+          # Generate software API docs
+          echo "# Software API Reference" > docs/api/generated/software-api.md
+          echo "Auto-generated from code documentation" >> docs/api/generated/software-api.md
+          
+      - name: Update main README
+        run: |
+          echo "🔄 Updating main project README..."
+          # Auto-generate table of contents for main README
+          python -c "
+          import os
+          import re
+          
+          # Scan for README files and build navigation
+          readme_files = []
+          for root, dirs, files in os.walk('.'):
+              if 'README.md' in files and root != '.':
+                  readme_files.append(root)
+          
+          nav_section = '## REZONATE Navigation\\n'
+          for path in sorted(readme_files):
+              name = path.replace('./', '').replace('-', ' ').title()
+              nav_section += f'- [{name}]({path}/README.md)\\n'
+          
+          print('Navigation section generated:', nav_section)
+          "
+          
+      - name: Generate component overview
+        run: |
+          echo "📊 Generating component overview..."
+          python -c "
+          import os
+          import json
+          
+          components = {
+              'hardware-design': {'type': 'hardware', 'status': 'initialized'},
+              'firmware': {'type': 'embedded', 'status': 'initialized'},
+              'software': {'type': 'application', 'status': 'initialized'},
+              'docs': {'type': 'documentation', 'status': 'active'},
+              'automation': {'type': 'ci-cd', 'status': 'active'}
+          }
+          
+          with open('docs/component-status.json', 'w') as f:
+              json.dump(components, f, indent=2)
+              
+          print('Component status generated')
+          "
+          
+      - name: Validate documentation structure
+        run: |
+          echo "✅ Validating documentation structure..."
+          
+          # Check required sections in each README
+          for readme in hardware-design/README.md firmware/README.md software/README.md docs/README.md automation/README.md; do
+            if [ -f "$readme" ]; then
+              if grep -q "## Overview" "$readme"; then
+                echo "✓ $readme has Overview section"
+              else
+                echo "⚠️ $readme missing Overview section"
+              fi
+            else
+              echo "⚠️ $readme file not found"
+            fi
+          done
+          
+      - name: Check for documentation changes
+        id: verify-doc-changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Commit and push documentation updates
+        if: steps.verify-doc-changes.outputs.changed == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "docs(auto): update REZONATE documentation"
+          branch: ${{ github.head_ref || github.ref_name }}

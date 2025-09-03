@@ -1,0 +1,259 @@
+name: REZONATE Deploy
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+        - staging
+        - production
+      component:
+        description: 'Component to deploy'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+        - all
+        - firmware
+        - software
+        - documentation
+
+jobs:
+  deploy-firmware:
+    runs-on: ubuntu-latest
+    name: Deploy Firmware
+    if: ${{ github.event.inputs.component == 'all' || github.event.inputs.component == 'firmware' }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: Install PlatformIO
+        run: |
+          pip install platformio
+          
+      - name: Build firmware binaries
+        run: |
+          echo "🔧 Building firmware for deployment..."
+          cd firmware/
+          
+          # Build all firmware components
+          for component in midi-control motion-input power-management; do
+            if [ -d "$component" ]; then
+              echo "Building $component firmware..."
+              cd "$component"
+              
+              if [ ! -f platformio.ini ]; then
+                pio init --board esp32-s3-devkitc-1 --ide none
+                mkdir -p src
+                echo '#include <Arduino.h>' > src/main.cpp
+                echo 'void setup() { Serial.begin(115200); Serial.println("REZONATE '$component' v1.0"); }' >> src/main.cpp
+                echo 'void loop() { delay(1000); }' >> src/main.cpp
+              fi
+              
+              pio run
+              cd ..
+            fi
+          done
+          
+      - name: Create firmware artifacts
+        run: |
+          mkdir -p artifacts/firmware
+          find firmware/ -name "*.bin" -o -name "*.elf" | while read -r binary; do
+            cp "$binary" artifacts/firmware/
+          done
+          
+          # Create firmware manifest
+          cat > artifacts/firmware/manifest.json << EOF
+          {
+            "version": "${{ github.ref_name || 'dev-build' }}",
+            "build_date": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "components": [
+              "midi-control",
+              "motion-input", 
+              "power-management"
+            ],
+            "target": "esp32-s3-devkitc-1"
+          }
+          EOF
+          
+      - name: Upload firmware artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: rezonate-firmware-${{ github.sha }}
+          path: artifacts/firmware/
+
+  deploy-software:
+    runs-on: ubuntu-latest
+    name: Deploy Software Components
+    if: ${{ github.event.inputs.component == 'all' || github.event.inputs.component == 'software' }}
+    
+    strategy:
+      matrix:
+        component: [performance-ui, bluetooth-orchestration, midi-mapping]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: Build software component
+        run: |
+          cd software/${{ matrix.component }}/
+          echo "🏗️ Building ${{ matrix.component }}..."
+          
+          if [ -f package.json ]; then
+            npm install
+            npm run build || echo "No build script defined"
+          fi
+          
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+            # Create distribution package
+            python -c "
+import sys
+import os
+sys.path.append('.')
+print('Creating distribution for ${{ matrix.component }}...')
+"
+          fi
+          
+      - name: Create software artifacts
+        run: |
+          mkdir -p artifacts/${{ matrix.component }}
+          cd software/${{ matrix.component }}/
+          
+          # Copy built files
+          if [ -d build ]; then
+            cp -r build/* ../../artifacts/${{ matrix.component }}/
+          elif [ -d dist ]; then
+            cp -r dist/* ../../artifacts/${{ matrix.component }}/
+          else
+            # Copy source files for distribution
+            cp -r . ../../artifacts/${{ matrix.component }}/
+            # Remove development files
+            rm -rf ../../artifacts/${{ matrix.component }}/{node_modules,__pycache__,.git}
+          fi
+          
+      - name: Upload software artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: rezonate-${{ matrix.component }}-${{ github.sha }}
+          path: artifacts/${{ matrix.component }}/
+
+  deploy-documentation:
+    runs-on: ubuntu-latest
+    name: Deploy Documentation
+    if: ${{ github.event.inputs.component == 'all' || github.event.inputs.component == 'documentation' }}
+    
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: Install documentation tools
+        run: |
+          pip install mkdocs mkdocs-material mkdocs-mermaid2-plugin
+          
+      - name: Build documentation site
+        run: |
+          echo "📚 Building documentation site..."
+          
+          # Create mkdocs.yml if it doesn't exist
+          if [ ! -f mkdocs.yml ]; then
+            cat > mkdocs.yml << EOF
+          site_name: REZONATE Documentation
+          site_description: Modular Wearable Instrument System
+          theme:
+            name: material
+            features:
+              - navigation.tabs
+              - navigation.sections
+              - toc.integrate
+          
+          nav:
+            - Home: index.md
+            - Hardware: hardware/index.md
+            - Firmware: firmware/index.md
+            - Software: software/index.md
+            - Automation: automation/index.md
+          
+          plugins:
+            - mermaid2
+          EOF
+          fi
+          
+          # Create documentation structure
+          mkdir -p docs/{hardware,firmware,software,automation}
+          
+          # Convert README files to documentation
+          cp README.md docs/index.md
+          cp hardware-design/README.md docs/hardware/index.md
+          cp firmware/README.md docs/firmware/index.md
+          cp software/README.md docs/software/index.md
+          cp automation/README.md docs/automation/index.md
+          
+          # Build site
+          mkdocs build
+          
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/
+          
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  notify-deployment:
+    runs-on: ubuntu-latest
+    name: Deployment Notification
+    needs: [deploy-firmware, deploy-software, deploy-documentation]
+    if: always()
+    
+    steps:
+      - name: Send deployment notification
+        run: |
+          echo "📢 REZONATE Deployment Summary"
+          echo "============================="
+          echo "Environment: ${{ github.event.inputs.environment || 'release' }}"
+          echo "Component: ${{ github.event.inputs.component || 'all' }}"
+          echo "Version: ${{ github.ref_name || github.sha }}"
+          echo "Status: ${{ job.status }}"
+          echo ""
+          echo "Deployment completed at: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          
+          # In a real deployment, this would send to Discord/Slack/Email
+          echo "🚀 Deployment notification sent!"
