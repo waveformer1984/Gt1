@@ -1,0 +1,46 @@
+{
+  "auto_stack_businesses": {
+    "leons_barber_shop": {
+      "name": "Leon's Barber Shop",
+      "type": "service_business",
+      "features": {
+        "appointments": true,
+        "customer_management": true,
+        "inventory": true,
+        "payments": true
+      },
+      "integration_status": "excellent",
+      "priority": "high"
+    },
+    "moms_mcmurray": {
+      "name": "Mom's McMurray",
+      "type": "operations_business",
+      "features": {
+        "operations": true,
+        "scheduling": true,
+        "logistics": true,
+        "quality_control": true
+      },
+      "integration_status": "excellent",
+      "priority": "medium"
+    },
+    "pops_dog_house": {
+      "name": "Pop's Dog House",
+      "type": "delivery_business",
+      "features": {
+        "custom_orders": true,
+        "delivery_management": true,
+        "subscriptions": true,
+        "nutrition_tracking": true
+      },
+      "integration_status": "excellent",
+      "priority": "development"
+    }
+  },
+  "dashboard_settings": {
+    "unified_view": true,
+    "cross_business_analytics": true,
+    "shared_customer_base": true,
+    "integrated_notifications": true
+  }
+}
