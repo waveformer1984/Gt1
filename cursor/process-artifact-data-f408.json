@@ -1,0 +1,104 @@
+{
+  "schema": "cursor/process-artifact-data-f408",
+  "generated_utc": "2025-08-16T06:48:59.862024+00:00",
+  "base_dir": "/workspace/heidi-launch",
+  "num_files": 12,
+  "files": [
+    {
+      "path": "windows-setup.md",
+      "size_bytes": 572,
+      "modified_utc": "2025-08-13T00:54:24.252090+00:00",
+      "sha256": "cc1c847565ecd2db3a5cac59566172c3700b3e7d4fcb1fc889981160a7e3a50c",
+      "content_type": "text/markdown",
+      "preview": "# Windows Setup (PowerShell)\n\n```powershell\n# 1) Unpack and init\nExpand-Archive .\\heidi-launch-repo.zip -DestinationPath .\ncd .\\heidi-launch\ngit init -b main\ngit add .\ngit commit -m \"chore: init Heidi launch scaffold\"\n\n# 2) Create hardened private repo\n.\\scripts\\gh-setup.ps1 -RepoSlug protoforge/heidi-launch\n\n# 3) Add remote and push\ngit remote add origin git@github.com:protoforge/heidi-launch.git\ngit push -u origin main\n```\n\n**Optional:** Organization-level hardening\n```powershell\n.\\scripts\\gh-org-hardening.ps1 -Org protoforge -RepoSlug protoforge/heidi-launch\n```\n"
+    },
+    {
+      "path": "README.md",
+      "size_bytes": 1023,
+      "modified_utc": "2025-08-13T00:54:28.404103+00:00",
+      "sha256": "084e71c36027e7f5f7b226941e363936a4db069420da4319a52bf1d8453d3f8f",
+      "content_type": "text/markdown",
+      "preview": "# Heidi Launch\n\nHardened GitHub repository scaffold with CI, CodeQL, and dependency auditing.\n\n## Contents\n- `scripts/gh-setup.ps1`: Creates a private repo and configures strong protections and security.\n- `scripts/gh-org-hardening.ps1`: Applies hardening to a repo within an org.\n- `scripts/harden.ps1`: Applies protections via GitHub REST API using `ADMIN_TOKEN`.\n- `scripts/ci-check.ps1`: Runs `black`, `flake8`, and `pytest`.\n- `windows-setup.md`: Quick Windows setup steps.\n\n## Local use\n```powershell\n# From Windows PowerShell\n.\\scripts\\gh-setup.ps1 -RepoSlug <owner>/<repo>\n# Optionally\n.\\scripts\\gh-org-hardening.ps1 -Org <org> -RepoSlug <owner>/<repo>\n```\n\n## CI Workflows\n- CI: runs formatting, linting, and tests; publishes a commit status context `CI`.\n- CodeQL: runs code scanning; publishes a commit status context `CodeQL`.\n- Dependency Audit: runs Python dependency audit; publishes a commit status context `Dependency Audit`.\n\nThese contexts align with branch protection settings configured by the scripts."
+    },
+    {
+      "path": "scripts/ci-check.ps1",
+      "size_bytes": 133,
+      "modified_utc": "2025-08-13T00:54:24.252090+00:00",
+      "sha256": "d2a57263e5e884f33ddceb797632a165f31f39f5358e064878a2d3f25df0d2cd",
+      "content_type": "application/octet-stream",
+      "preview": null
+    },
+    {
+      "path": "scripts/harden.ps1",
+      "size_bytes": 1220,
+      "modified_utc": "2025-08-13T00:54:24.252090+00:00",
+      "sha256": "ba4825263b46a16c50d022b78bdb083e2313e65b0381f5eb459aadbf8c2bf275",
+      "content_type": "application/octet-stream",
+      "preview": null
+    },
+    {
+      "path": "scripts/gh-setup.ps1",
+      "size_bytes": 1058,
+      "modified_utc": "2025-08-13T00:54:24.252090+00:00",
+      "sha256": "1bf388c321283133ef03a833e2d4c4e933f64c660ada2bc08c2d5548751d286f",
+      "content_type": "application/octet-stream",
+      "preview": null
+    },
+    {
+      "path": "scripts/gh-org-hardening.ps1",
+      "size_bytes": 977,
+      "modified_utc": "2025-08-13T00:54:24.252090+00:00",
+      "sha256": "950989a4f9194d31a28d6dc079f1261f6c85cbf1f5d1f48af77c30f517030480",
+      "content_type": "application/octet-stream",
+      "preview": null
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "size_bytes": 1221,
+      "modified_utc": "2025-08-13T00:54:35.268126+00:00",
+      "sha256": "85c0af3da0ecd4f42ceb874c7985878141f582c2ee5dc3d3ebd27ea02dec630b",
+      "content_type": "application/yaml",
+      "preview": null
+    },
+    {
+      "path": ".github/workflows/dependency-audit.yml",
+      "size_bytes": 1334,
+      "modified_utc": "2025-08-13T00:54:50.740176+00:00",
+      "sha256": "bd910e1676a38268c34374430c59d266e327fe3b3d2e1186d31d8e1b5123abc7",
+      "content_type": "application/yaml",
+      "preview": null
+    },
+    {
+      "path": ".github/workflows/codeql.yml",
+      "size_bytes": 1179,
+      "modified_utc": "2025-08-13T00:54:41.584146+00:00",
+      "sha256": "7039f7b837c60fc2efc8d659923cbbbd35ba34645b1850871dc1febfa8224fc1",
+      "content_type": "application/yaml",
+      "preview": null
+    },
+    {
+      "path": "cursor/process_artifact_data_f408.py",
+      "size_bytes": 4675,
+      "modified_utc": "2025-08-16T06:48:51.207716+00:00",
+      "sha256": "8e439fc5b0083e088623009b4d0d79ac0d43cf377874a2a58c52a23e37b0a054",
+      "content_type": "text/x-python",
+      "preview": null
+    },
+    {
+      "path": "cursor/README.md",
+      "size_bytes": 500,
+      "modified_utc": "2025-08-16T06:48:56.247716+00:00",
+      "sha256": "83d9ff6e8d09540339fddbaf4dd53602245dd476f8e6944483e97f0b2d9c3a55",
+      "content_type": "text/markdown",
+      "preview": "This folder stores Cursor artifacts.\n\n- process-artifact-data-f408: add the actual artifact content here if needed.\n\n## process_artifact_data_f408.py\nGenerate an artifact JSON of repository files:\n\n```bash\npython3 cursor/process_artifact_data_f408.py --base-dir .\n# Output: cursor/process-artifact-data-f408.json\n```\n\nOptions:\n- `--base-dir DIR`: directory to scan (default: `.`)\n- `--output PATH`: explicit output path\n- `--max-preview-bytes N`: include up to N bytes of small text files as preview\n"
+    },
+    {
+      "path": "cursor/process-artifact-data-f408",
+      "size_bytes": 0,
+      "modified_utc": "2025-08-13T08:57:54.489646+00:00",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "content_type": "application/octet-stream",
+      "preview": null
+    }
+  ]
+}
