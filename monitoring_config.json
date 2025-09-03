@@ -1,0 +1,16 @@
+{
+  "performance": {
+    "enabled": true,
+    "collection_interval": 1.0,
+    "metrics_history_size": 3600
+  },
+  "prometheus": {
+    "enabled": true,
+    "port": 8090
+  },
+  "alerts": {
+    "cpu_threshold": 80,
+    "memory_threshold": 85,
+    "response_time_threshold": 100
+  }
+}

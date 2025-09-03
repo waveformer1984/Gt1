@@ -1,0 +1,16 @@
+{
+  "redis": {
+    "enabled": true,
+    "url": "redis://localhost:6379/0",
+    "ttl": 3600
+  },
+  "disk_cache": {
+    "enabled": true,
+    "size_mb": 100,
+    "directory": ".cache"
+  },
+  "memory_cache": {
+    "enabled": true,
+    "max_size": 1000
+  }
+}

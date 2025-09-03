@@ -1,0 +1,220 @@
+{
+  "test_type": "Comprehensive API Testing",
+  "timestamp": "2025-08-04 23:40:20",
+  "server_startup": "SUCCESS",
+  "api_endpoint_tests": {
+    "summary": {
+      "total_endpoints_tested": 13,
+      "successful_tests": 13,
+      "failed_tests": 0,
+      "success_rate": 100.0,
+      "average_response_time": 0.028085036769390663,
+      "timestamp": "2025-08-04 23:40:20"
+    },
+    "detailed_results": [
+      {
+        "endpoint": "GET /health",
+        "description": "Health check endpoint",
+        "expected_status": 200,
+        "actual_status": 200,
+        "success": true,
+        "duration": 0.001082085000234656,
+        "response_sample": {
+          "status": "healthy",
+          "timestamp": 1754350818.519601,
+          "version": "1.0.0"
+        },
+        "error": null
+      },
+      {
+        "endpoint": "GET /api/system/status",
+        "description": "Get system status",
+        "expected_status": 200,
+        "actual_status": 200,
+        "success": true,
+        "duration": 0.0012290220001887064,
+        "response_sample": "{'system': {'cpu_percent': 25.5, 'memory_percent': 65.2, 'memory_available_gb': 8.4, 'disk_free_gb': 500.2, 'uptime_seconds': 3600}, 'process': {'memory_rss_mb': 128.5, 'memory_vms_mb': 256.8, 'thread...",
+        "error": null
+      },
+      {
+        "endpoint": "GET /api/performance/metrics",
+        "description": "Get performance metrics",
+        "expected_status": 200,
+        "actual_status": 200,
+        "success": true,
+        "duration": 0.0010842820011021104,
+        "response_sample": {
+          "cpu_usage": 28.72258234024048,
+          "memory_usage": 65.2,
+          "request_count": 1251,
+          "response_time_avg": 0.045,
+          "error_rate": 0.02,
+          "timestamp": 1754350818.7225814
+        },
+        "error": null
+      },
+      {
+        "endpoint": "GET /api/performance/memory",
+        "description": "Get memory information",
+        "expected_status": 200,
+        "actual_status": 200,
+        "success": true,
+        "duration": 0.0011003920008079149,
+        "response_sample": {
+          "total_memory_mb": 16384,
+          "used_memory_mb": 10689,
+          "available_memory_mb": 5695,
+          "memory_percent": 65.2,
+          "swap_total_mb": 2048,
+          "swap_used_mb": 512,
+          "timestamp": 1754350818.8240054
+        },
+        "error": null
+      },
+      {
+        "endpoint": "POST /api/performance/optimize",
+        "description": "Trigger performance optimization",
+        "expected_status": 200,
+        "actual_status": 200,
+        "success": true,
+        "duration": 0.10145179499886581,
+        "response_sample": {
+          "message": "Performance optimization completed",
+          "optimizations_applied": [
+            "garbage_collection",
+            "memory_defragmentation",
+            "cache_cleanup"
+          ],
+          "timestamp": 1754350819.0254264
+        },
+        "error": null
+      },
+      {
+        "endpoint": "GET /api/plugins",
+        "description": "Get available plugins",
+        "expected_status": 200,
+        "actual_status": 200,
+        "success": true,
+        "duration": 0.0012145520013291389,
+        "response_sample": "{'plugins': [{'name': 'voice_recognition', 'status': 'active', 'version': '1.2.0'}, {'name': 'midi_controller', 'status': 'active', 'version': '2.1.0'}, {'name': 'obd2_monitor', 'status': 'inactive', ...",
+        "error": null
+      },
+      {
+        "endpoint": "POST /api/plugins/voice_recognition/reload",
+        "description": "Reload voice recognition plugin",
+        "expected_status": 200,
+        "actual_status": 200,
+        "success": true,
+        "duration": 0.20090522800092003,
+        "response_sample": {
+          "message": "Plugin voice_recognition reloaded successfully",
+          "plugin_name": "voice_recognition",
+          "reload_time": 0.2,
+          "timestamp": 1754350819.4280865
+        },
+        "error": null
+      },
+      {
+        "endpoint": "GET /api/config",
+        "description": "Get application configuration",
+        "expected_status": 200,
+        "actual_status": 200,
+        "success": true,
+        "duration": 0.0011800319989561103,
+        "response_sample": "{'app_name': 'ballsDeepnit', 'version': '1.0.0', 'debug': True, 'features': {'hot_reload': True, 'voice_triggers': True, 'midi_triggers': True, 'web_dashboard': True}, 'performance': {'max_workers': 8...",
+        "error": null
+      },
+      {
+        "endpoint": "PUT /api/config",
+        "description": "Update configuration",
+        "expected_status": 200,
+        "actual_status": 200,
+        "success": true,
+        "duration": 0.0013169670019124169,
+        "response_sample": {
+          "message": "Configuration updated successfully",
+          "updated_fields": [
+            "debug",
+            "max_workers"
+          ],
+          "timestamp": 1754350819.6310914
+        },
+        "error": null
+      },
+      {
+        "endpoint": "GET /api/cache/stats",
+        "description": "Get cache statistics",
+        "expected_status": 200,
+        "actual_status": 200,
+        "success": true,
+        "duration": 0.0009984589996747673,
+        "response_sample": {
+          "total_keys": 1250,
+          "hit_rate": 0.87,
+          "miss_rate": 0.13,
+          "memory_usage_mb": 45.2,
+          "oldest_entry_age": 3600,
+          "newest_entry_age": 0.5,
+          "timestamp": 1754350819.7324917
+        },
+        "error": null
+      },
+      {
+        "endpoint": "DELETE /api/cache",
+        "description": "Clear cache",
+        "expected_status": 200,
+        "actual_status": 200,
+        "success": true,
+        "duration": 0.05130935700071859,
+        "response_sample": {
+          "message": "Cache cleared successfully",
+          "keys_removed": 1250,
+          "timestamp": 1754350819.8838654
+        },
+        "error": null
+      },
+      {
+        "endpoint": "GET /api/nonexistent",
+        "description": "Test 404 error handling",
+        "expected_status": 404,
+        "actual_status": 404,
+        "success": true,
+        "duration": 0.0013046979984210338,
+        "response_sample": {
+          "error": "Not found",
+          "path": "/api/nonexistent"
+        },
+        "error": "HTTP Error 404: Not Found"
+      },
+      {
+        "endpoint": "PATCH /health",
+        "description": "Test method not allowed",
+        "expected_status": 405,
+        "actual_status": 405,
+        "success": true,
+        "duration": 0.0009286089989473112,
+        "response_sample": {
+          "detail": "Method Not Allowed"
+        },
+        "error": "HTTP Error 405: Method Not Allowed"
+      }
+    ]
+  },
+  "websocket_tests": {
+    "websocket_test": "FAIL",
+    "error": "BaseEventLoop.create_connection() got an unexpected keyword argument 'timeout'",
+    "success": false
+  },
+  "load_tests": {
+    "total_requests": 50,
+    "successful_requests": 50,
+    "failed_requests": 0,
+    "success_rate": 100.0,
+    "total_duration": 0.03552377300002263,
+    "requests_per_second": 1407.5081495416646,
+    "avg_response_time": 0.0006957095998222939,
+    "min_response_time": 0.00047034800081746653,
+    "max_response_time": 0.0017530110017105471,
+    "concurrent_requests": 5
+  }
+}

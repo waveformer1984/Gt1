@@ -1,0 +1,75 @@
+{
+  "summary": {
+    "total_tests": 9,
+    "passed": 5,
+    "failed": 4,
+    "skipped": 0,
+    "total_duration": 0.416597843170166,
+    "timestamp": "2025-08-04 23:55:21"
+  },
+  "results": [
+    {
+      "test_name": "Environment Setup",
+      "status": "PASS",
+      "duration": 2.1051000658189878e-05,
+      "message": "Python 3.13, all required files present",
+      "details": null
+    },
+    {
+      "test_name": "Dependencies Check",
+      "status": "PASS",
+      "duration": 0.245694987999741,
+      "message": "All 8 required packages available",
+      "details": null
+    },
+    {
+      "test_name": "Configuration Loading",
+      "status": "PASS",
+      "duration": 0.03939578399877064,
+      "message": "Configuration loaded successfully - ballsDeepnit v0.1.0",
+      "details": null
+    },
+    {
+      "test_name": "FastAPI App Creation",
+      "status": "FAIL",
+      "duration": 0.1299596239987295,
+      "message": "Failed to create FastAPI app: cannot import name 'AuthenticationError' from 'ballsdeepnit.auth' (/workspace/src/ballsdeepnit/auth/__init__.py)",
+      "details": null
+    },
+    {
+      "test_name": "API Endpoints Discovery",
+      "status": "FAIL",
+      "duration": 0.00034849700023187324,
+      "message": "Failed to discover endpoints: cannot import name 'AuthenticationError' from 'ballsdeepnit.auth' (/workspace/src/ballsdeepnit/auth/__init__.py)",
+      "details": null
+    },
+    {
+      "test_name": "Performance Monitoring",
+      "status": "FAIL",
+      "duration": 2.9420007194858044e-06,
+      "message": "Missing metrics: ['current_metrics', 'function_metrics']",
+      "details": null
+    },
+    {
+      "test_name": "Caching System",
+      "status": "PASS",
+      "duration": 0.000549945001694141,
+      "message": "Cache set/get operations working correctly",
+      "details": null
+    },
+    {
+      "test_name": "Security Configurations",
+      "status": "PASS",
+      "duration": 3.94000016967766e-06,
+      "message": "Security configurations validated - {'rate_limiting': True, 'request_validation': True, 'max_request_size': 10}",
+      "details": null
+    },
+    {
+      "test_name": "App Startup",
+      "status": "FAIL",
+      "duration": 0.0003596539972932078,
+      "message": "Startup test failed: cannot import name 'AuthenticationError' from 'ballsdeepnit.auth' (/workspace/src/ballsdeepnit/auth/__init__.py)",
+      "details": null
+    }
+  ]
+}
