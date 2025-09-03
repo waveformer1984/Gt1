@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskBot Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+        .bot-card { transition: all 0.3s ease; }
+        .bot-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+        .status-indicator { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+        .status-online { background-color: #10B981; }
+        .status-offline { background-color: #EF4444; }
+        .status-busy { background-color: #F59E0B; }
+        .status-idle { background-color: #6B7280; }
+        .status-error { background-color: #DC2626; }
+        .status-maintenance { background-color: #8B5CF6; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans" x-data="taskBotDashboard()">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg border-b">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-xl font-bold text-gray-800">
+                            <i class="fas fa-robot text-blue-600 mr-2"></i>
+                            TaskBot Dashboard
+                        </h1>
+                    </div>
+                    <div class="hidden md:block ml-8">
+                        <div class="flex items-baseline space-x-4">
+                            <button @click="activeTab = 'overview'" 
+                                    :class="activeTab === 'overview' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500 hover:text-gray-700'"
+                                    class="px-3 py-2 text-sm font-medium">
+                                Overview
+                            </button>
+                            <button @click="activeTab = 'bots'" 
+                                    :class="activeTab === 'bots' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500 hover:text-gray-700'"
+                                    class="px-3 py-2 text-sm font-medium">
+                                Bots
+                            </button>
+                            <button @click="activeTab = 'tasks'" 
+                                    :class="activeTab === 'tasks' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500 hover:text-gray-700'"
+                                    class="px-3 py-2 text-sm font-medium">
+                                Tasks
+                            </button>
+                            <button @click="activeTab = 'assignments'" 
+                                    :class="activeTab === 'assignments' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500 hover:text-gray-700'"
+                                    class="px-3 py-2 text-sm font-medium">
+                                Assignments
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-sm text-gray-500">
+                        Last updated: <span x-text="lastUpdated"></span>
+                    </div>
+                    <button @click="refreshData()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm">
+                        <i class="fas fa-sync-alt mr-1"></i> Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Loading Overlay -->
+    <div x-show="loading" x-cloak class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            <p class="mt-4 text-gray-600">Loading...</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto py-6 px-4">
+        <!-- Overview Tab -->
+        <div x-show="activeTab === 'overview'" x-cloak>
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">System Overview</h2>
+                <p class="text-gray-600">Monitor your TaskBot system performance and status</p>
+            </div>
+
+            <!-- System Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="p-5">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-robot text-2xl text-blue-600"></i>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <dl>
+                                    <dt class="text-sm font-medium text-gray-500 truncate">Total Bots</dt>
+                                    <dd class="text-lg font-medium text-gray-900" x-text="systemStats.total_bots || 0"></dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="p-5">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-circle text-2xl text-green-600"></i>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <dl>
+                                    <dt class="text-sm font-medium text-gray-500 truncate">Online Bots</dt>
+                                    <dd class="text-lg font-medium text-gray-900" x-text="systemStats.online_bots || 0"></dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="p-5">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-tasks text-2xl text-purple-600"></i>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <dl>
+                                    <dt class="text-sm font-medium text-gray-500 truncate">Total Assignments</dt>
+                                    <dd class="text-lg font-medium text-gray-900" x-text="systemStats.total_assignments || 0"></dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="p-5">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-clock text-2xl text-yellow-600"></i>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <dl>
+                                    <dt class="text-sm font-medium text-gray-500 truncate">Queue Size</dt>
+                                    <dd class="text-lg font-medium text-gray-900" x-text="systemStats.queue_size || 0"></dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Health -->
+            <div class="bg-white shadow rounded-lg mb-8">
+                <div class="px-4 py-5 sm:p-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">System Health</h3>
+                    <div class="flex items-center mb-4">
+                        <div class="flex-shrink-0">
+                            <div :class="healthStatus.status === 'healthy' ? 'bg-green-100 text-green-800' : 
+                                         healthStatus.status === 'warning' ? 'bg-yellow-100 text-yellow-800' : 
+                                         'bg-red-100 text-red-800'"
+                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">
+                                <i :class="healthStatus.status === 'healthy' ? 'fas fa-check' : 
+                                           healthStatus.status === 'warning' ? 'fas fa-exclamation-triangle' : 
+                                           'fas fa-times'"
+                                   class="mr-1"></i>
+                                <span x-text="healthStatus.status || 'Unknown'"></span>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm text-gray-600" x-text="healthStatus.message || 'System operating normally'"></p>
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-500">
+                        Assignment Strategy: <span class="font-medium" x-text="systemStats.assignment_strategy || 'Unknown'"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bots Tab -->
+        <div x-show="activeTab === 'bots'" x-cloak>
+            <div class="mb-6 flex justify-between items-center">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Bot Management</h2>
+                    <p class="text-gray-600">Manage and monitor your bots</p>
+                </div>
+                <button @click="showBotForm = true" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+                    <i class="fas fa-plus mr-1"></i> Register Bot
+                </button>
+            </div>
+
+            <!-- Bot Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <template x-for="bot in bots" :key="bot.id">
+                    <div class="bg-white shadow rounded-lg p-6 bot-card">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-medium text-gray-900" x-text="bot.name"></h3>
+                            <div class="flex items-center">
+                                <span :class="'status-' + bot.status" class="status-indicator mr-2"></span>
+                                <span class="text-sm text-gray-500 capitalize" x-text="bot.status"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-500">Type:</span>
+                                <span class="font-medium capitalize" x-text="bot.bot_type.replace('_', ' ')"></span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-500">Current Tasks:</span>
+                                <span class="font-medium" x-text="bot.current_tasks.length + '/' + bot.max_concurrent_tasks"></span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-500">Completed:</span>
+                                <span class="font-medium text-green-600" x-text="bot.completed_tasks"></span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-500">Failed:</span>
+                                <span class="font-medium text-red-600" x-text="bot.failed_tasks"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h4 class="text-sm font-medium text-gray-700 mb-2">Capabilities:</h4>
+                            <div class="flex flex-wrap gap-1">
+                                <template x-for="capability in bot.capabilities" :key="capability.name">
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                        <span x-text="capability.name"></span>
+                                    </span>
+                                </template>
+                            </div>
+                        </div>
+                        
+                        <div class="flex space-x-2">
+                            <button @click="viewBotDetails(bot)" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded text-sm">
+                                View Details
+                            </button>
+                            <button @click="updateBotStatus(bot.id)" class="flex-1 bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-2 rounded text-sm">
+                                Update Status
+                            </button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- No bots message -->
+            <div x-show="bots.length === 0" class="text-center py-12">
+                <i class="fas fa-robot text-4xl text-gray-400 mb-4"></i>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">No bots registered</h3>
+                <p class="text-gray-500 mb-4">Get started by registering your first bot</p>
+                <button @click="showBotForm = true" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+                    Register Bot
+                </button>
+            </div>
+        </div>
+
+        <!-- Tasks Tab -->
+        <div x-show="activeTab === 'tasks'" x-cloak>
+            <div class="mb-6 flex justify-between items-center">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Task Management</h2>
+                    <p class="text-gray-600">Create and manage tasks</p>
+                </div>
+                <button @click="showTaskForm = true" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md">
+                    <i class="fas fa-plus mr-1"></i> Create Task
+                </button>
+            </div>
+
+            <!-- Task Creation Form -->
+            <div x-show="showTaskForm" x-cloak class="bg-white shadow rounded-lg p-6 mb-6">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">Create New Task</h3>
+                <form @submit.prevent="createTask()">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Task Name</label>
+                            <input x-model="taskForm.name" type="text" required class="w-full border border-gray-300 rounded-md px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Task Type</label>
+                            <select x-model="taskForm.task_type" class="w-full border border-gray-300 rounded-md px-3 py-2">
+                                <template x-for="type in taskTypes" :key="type.value">
+                                    <option :value="type.value" x-text="type.name"></option>
+                                </template>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+                            <select x-model="taskForm.priority" class="w-full border border-gray-300 rounded-md px-3 py-2">
+                                <template x-for="priority in priorities" :key="priority.value">
+                                    <option :value="priority.value" x-text="priority.name"></option>
+                                </template>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Subsystem</label>
+                            <input x-model="taskForm.subsystem" type="text" class="w-full border border-gray-300 rounded-md px-3 py-2">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                            <textarea x-model="taskForm.description" rows="3" class="w-full border border-gray-300 rounded-md px-3 py-2"></textarea>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex space-x-3">
+                        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md">
+                            Create Task
+                        </button>
+                        <button type="button" @click="showTaskForm = false; resetTaskForm()" class="bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded-md">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Assignments Tab -->
+        <div x-show="activeTab === 'assignments'" x-cloak>
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Task Assignments</h2>
+                <p class="text-gray-600">Monitor task assignments and progress</p>
+            </div>
+
+            <!-- Assignments Table -->
+            <div class="bg-white shadow overflow-hidden sm:rounded-md">
+                <ul class="divide-y divide-gray-200">
+                    <template x-for="assignment in assignments" :key="assignment.id">
+                        <li class="px-6 py-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <p class="text-sm font-medium text-gray-900" x-text="'Assignment: ' + assignment.id.substring(0, 8)"></p>
+                                        <div class="ml-2 flex-shrink-0 flex">
+                                            <p :class="assignment.status === 'completed' ? 'bg-green-100 text-green-800' : 
+                                                       assignment.status === 'failed' ? 'bg-red-100 text-red-800' : 
+                                                       assignment.status === 'running' ? 'bg-blue-100 text-blue-800' :
+                                                       'bg-yellow-100 text-yellow-800'"
+                                               class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">
+                                                <span x-text="assignment.status"></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 sm:flex sm:justify-between">
+                                        <div class="sm:flex">
+                                            <p class="flex items-center text-sm text-gray-500">
+                                                <i class="fas fa-robot mr-1"></i>
+                                                Bot: <span x-text="getBotName(assignment.bot_id)" class="ml-1 font-medium"></span>
+                                            </p>
+                                            <p class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
+                                                <i class="fas fa-tasks mr-1"></i>
+                                                Task: <span x-text="assignment.task_id.substring(0, 8)" class="ml-1 font-medium"></span>
+                                            </p>
+                                        </div>
+                                        <div class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
+                                            <i class="fas fa-calendar mr-1"></i>
+                                            <p x-text="formatDate(assignment.assigned_at)"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+                
+                <!-- No assignments message -->
+                <div x-show="assignments.length === 0" class="text-center py-12">
+                    <i class="fas fa-clipboard-list text-4xl text-gray-400 mb-4"></i>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">No assignments yet</h3>
+                    <p class="text-gray-500">Assignments will appear here when tasks are assigned to bots</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bot Registration Modal -->
+    <div x-show="showBotForm" x-cloak class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">Register New Bot</h3>
+                <form @submit.prevent="registerBot()">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Bot Name</label>
+                            <input x-model="botForm.name" type="text" required class="w-full border border-gray-300 rounded-md px-3 py-2">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Bot Type</label>
+                            <select x-model="botForm.bot_type" class="w-full border border-gray-300 rounded-md px-3 py-2">
+                                <template x-for="type in botTypes" :key="type.value">
+                                    <option :value="type.value" x-text="type.name"></option>
+                                </template>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Max Concurrent Tasks</label>
+                            <input x-model="botForm.max_concurrent_tasks" type="number" min="1" max="10" class="w-full border border-gray-300 rounded-md px-3 py-2">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Capabilities</label>
+                            <div class="space-y-2">
+                                <div class="flex items-center space-x-2">
+                                    <input x-model="newCapability.name" type="text" placeholder="Capability name" class="flex-1 border border-gray-300 rounded-md px-3 py-2">
+                                    <select x-model="newCapability.task_type" class="border border-gray-300 rounded-md px-3 py-2">
+                                        <option value="">Select task type</option>
+                                        <template x-for="type in taskTypes" :key="type.value">
+                                            <option :value="type.value" x-text="type.name"></option>
+                                        </template>
+                                    </select>
+                                    <button type="button" @click="addCapability()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <template x-for="(capability, index) in botForm.capabilities" :key="index">
+                                    <div class="flex items-center justify-between bg-gray-50 px-3 py-2 rounded-md mb-1">
+                                        <span class="text-sm" x-text="capability.name + ' (' + capability.task_types.join(', ') + ')'"></span>
+                                        <button type="button" @click="removeCapability(index)" class="text-red-600 hover:text-red-800">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 flex space-x-3">
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+                            Register Bot
+                        </button>
+                        <button type="button" @click="showBotForm = false; resetBotForm()" class="bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded-md">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div x-show="notification.show" x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 transform translate-y-2"
+         x-transition:enter-end="opacity-100 transform translate-y-0"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 transform translate-y-0"
+         x-transition:leave-end="opacity-0 transform translate-y-2"
+         class="fixed top-4 right-4 z-50">
+        <div :class="notification.type === 'success' ? 'bg-green-500' : 
+                     notification.type === 'error' ? 'bg-red-500' : 'bg-blue-500'"
+             class="text-white px-6 py-4 rounded-lg shadow-lg">
+            <div class="flex items-center">
+                <i :class="notification.type === 'success' ? 'fas fa-check-circle' : 
+                           notification.type === 'error' ? 'fas fa-exclamation-circle' : 'fas fa-info-circle'"
+                   class="mr-2"></i>
+                <span x-text="notification.message"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function taskBotDashboard() {
+            return {
+                // State
+                activeTab: 'overview',
+                loading: false,
+                lastUpdated: new Date().toLocaleTimeString(),
+                
+                // Data
+                systemStats: {},
+                healthStatus: {},
+                bots: [],
+                assignments: [],
+                taskTypes: [],
+                botTypes: [],
+                priorities: [],
+                
+                // Forms
+                showBotForm: false,
+                showTaskForm: false,
+                botForm: {
+                    name: '',
+                    bot_type: 'worker',
+                    max_concurrent_tasks: 3,
+                    capabilities: [],
+                    priority_preference: [],
+                    metadata: {},
+                    contact_info: {}
+                },
+                taskForm: {
+                    name: '',
+                    description: '',
+                    task_type: 'custom',
+                    priority: 'normal',
+                    context: {},
+                    metadata: {},
+                    subsystem: 'default'
+                },
+                newCapability: {
+                    name: '',
+                    task_type: '',
+                    description: ''
+                },
+                
+                // Notifications
+                notification: {
+                    show: false,
+                    type: 'info',
+                    message: ''
+                },
+                
+                // API Base URL
+                apiBase: 'http://localhost:8001/api/taskbot',
+                
+                // Initialize
+                async init() {
+                    await this.loadInitialData();
+                    this.startPeriodicRefresh();
+                },
+                
+                async loadInitialData() {
+                    this.loading = true;
+                    try {
+                        await Promise.all([
+                            this.loadSystemStats(),
+                            this.loadHealthStatus(),
+                            this.loadBots(),
+                            this.loadAssignments(),
+                            this.loadTaskTypes(),
+                            this.loadBotTypes(),
+                            this.loadPriorities()
+                        ]);
+                    } catch (error) {
+                        this.showNotification('error', 'Failed to load initial data');
+                        console.error('Failed to load initial data:', error);
+                    } finally {
+                        this.loading = false;
+                        this.lastUpdated = new Date().toLocaleTimeString();
+                    }
+                },
+                
+                async refreshData() {
+                    await this.loadInitialData();
+                },
+                
+                startPeriodicRefresh() {
+                    setInterval(() => {
+                        this.refreshData();
+                    }, 30000); // Refresh every 30 seconds
+                },
+                
+                // API Methods
+                async apiCall(endpoint, options = {}) {
+                    const response = await fetch(`${this.apiBase}${endpoint}`, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            ...options.headers
+                        },
+                        ...options
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`API call failed: ${response.statusText}`);
+                    }
+                    
+                    return await response.json();
+                },
+                
+                async loadSystemStats() {
+                    this.systemStats = await this.apiCall('/system/stats');
+                },
+                
+                async loadHealthStatus() {
+                    this.healthStatus = await this.apiCall('/system/health');
+                },
+                
+                async loadBots() {
+                    this.bots = await this.apiCall('/bots');
+                },
+                
+                async loadAssignments() {
+                    this.assignments = await this.apiCall('/assignments');
+                },
+                
+                async loadTaskTypes() {
+                    this.taskTypes = await this.apiCall('/task-types');
+                },
+                
+                async loadBotTypes() {
+                    this.botTypes = await this.apiCall('/bot-types');
+                },
+                
+                async loadPriorities() {
+                    this.priorities = await this.apiCall('/priorities');
+                },
+                
+                // Bot Management
+                async registerBot() {
+                    try {
+                        const response = await this.apiCall('/bots/register', {
+                            method: 'POST',
+                            body: JSON.stringify(this.botForm)
+                        });
+                        
+                        this.showNotification('success', 'Bot registered successfully');
+                        this.showBotForm = false;
+                        this.resetBotForm();
+                        await this.loadBots();
+                        
+                    } catch (error) {
+                        this.showNotification('error', 'Failed to register bot');
+                        console.error('Failed to register bot:', error);
+                    }
+                },
+                
+                addCapability() {
+                    if (this.newCapability.name && this.newCapability.task_type) {
+                        this.botForm.capabilities.push({
+                            name: this.newCapability.name,
+                            description: this.newCapability.description || this.newCapability.name,
+                            task_types: [this.newCapability.task_type],
+                            priority_boost: 0,
+                            max_concurrent: 1,
+                            metadata: {}
+                        });
+                        
+                        this.newCapability = { name: '', task_type: '', description: '' };
+                    }
+                },
+                
+                removeCapability(index) {
+                    this.botForm.capabilities.splice(index, 1);
+                },
+                
+                resetBotForm() {
+                    this.botForm = {
+                        name: '',
+                        bot_type: 'worker',
+                        max_concurrent_tasks: 3,
+                        capabilities: [],
+                        priority_preference: [],
+                        metadata: {},
+                        contact_info: {}
+                    };
+                },
+                
+                // Task Management
+                async createTask() {
+                    try {
+                        const response = await this.apiCall('/tasks', {
+                            method: 'POST',
+                            body: JSON.stringify(this.taskForm)
+                        });
+                        
+                        this.showNotification('success', 'Task created successfully');
+                        this.showTaskForm = false;
+                        this.resetTaskForm();
+                        await this.loadSystemStats();
+                        
+                    } catch (error) {
+                        this.showNotification('error', 'Failed to create task');
+                        console.error('Failed to create task:', error);
+                    }
+                },
+                
+                resetTaskForm() {
+                    this.taskForm = {
+                        name: '',
+                        description: '',
+                        task_type: 'custom',
+                        priority: 'normal',
+                        context: {},
+                        metadata: {},
+                        subsystem: 'default'
+                    };
+                },
+                
+                // Utility Methods
+                getBotName(botId) {
+                    const bot = this.bots.find(b => b.id === botId);
+                    return bot ? bot.name : 'Unknown Bot';
+                },
+                
+                formatDate(dateString) {
+                    return new Date(dateString).toLocaleString();
+                },
+                
+                viewBotDetails(bot) {
+                    // For now, just show an alert with bot details
+                    alert(`Bot Details:\n\nName: ${bot.name}\nType: ${bot.bot_type}\nStatus: ${bot.status}\nCompleted Tasks: ${bot.completed_tasks}\nFailed Tasks: ${bot.failed_tasks}`);
+                },
+                
+                async updateBotStatus(botId) {
+                    const newStatus = prompt('Enter new status (online, offline, busy, idle, error, maintenance):');
+                    if (newStatus) {
+                        try {
+                            await this.apiCall(`/bots/${botId}/status`, {
+                                method: 'PUT',
+                                body: JSON.stringify({ status: newStatus })
+                            });
+                            
+                            this.showNotification('success', 'Bot status updated');
+                            await this.loadBots();
+                            
+                        } catch (error) {
+                            this.showNotification('error', 'Failed to update bot status');
+                            console.error('Failed to update bot status:', error);
+                        }
+                    }
+                },
+                
+                showNotification(type, message) {
+                    this.notification = { show: true, type, message };
+                    setTimeout(() => {
+                        this.notification.show = false;
+                    }, 5000);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

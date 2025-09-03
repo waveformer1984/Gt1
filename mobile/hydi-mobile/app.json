@@ -1,0 +1,40 @@
+{
+  "name": "HydiMobile",
+  "displayName": "Hydi Mobile",
+  "version": "1.0.0",
+  "description": "Advanced AI REPL & Automation Framework Mobile App",
+  "main": "index.js",
+  "author": "ballsDeepnit Team",
+  "license": "MIT",
+  "expo": {
+    "name": "Hydi Mobile",
+    "slug": "hydi-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icons/hydi_icon.png",
+    "splash": {
+      "image": "./assets/icons/hydi_icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#6633FF"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "icon": "./assets/icons/ios/icon_1024x1024.png",
+      "bundleIdentifier": "com.ballsdeepnit.hydimobile"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "../../assets/icons/android/mipmap-xxxhdpi/ic_launcher.png",
+        "backgroundColor": "#6633FF"
+      },
+      "package": "com.ballsdeepnit.hydimobile",
+      "icon": "./assets/icons/android/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    "web": {
+      "favicon": "../../assets/icons/hydi_icon.png"
+    }
+  }
+}

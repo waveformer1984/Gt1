@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hydi Voice</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Hydi Voice</h1>
+      <div class="status" id="status">Idle</div>
+    </header>
+
+    <section class="controls">
+      <button id="toggle-rec">Start Talking</button>
+      <label class="inline">
+        <input type="checkbox" id="auto-speak" checked /> Auto-speak replies
+      </label>
+      <label class="inline">
+        <input type="checkbox" id="continuous" checked /> Continuous recognition
+      </label>
+      <button id="clear-chat" class="secondary">Clear</button>
+    </section>
+
+    <section class="token">
+      <input id="token-input" type="password" placeholder="Access token (if configured)" />
+      <button id="save-token" class="secondary">Save Token</button>
+    </section>
+
+    <section class="chat" id="chat"></section>
+
+    <section class="composer">
+      <input id="text-input" type="text" placeholder="Type a message and press Enter..." />
+    </section>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
