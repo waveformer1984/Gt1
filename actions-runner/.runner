@@ -1,0 +1,11 @@
+﻿{
+  "agentId": 21,
+  "agentName": "DESKTOP-I719OIN",
+  "poolId": 1,
+  "poolName": "Default",
+  "serverUrl": "https://pipelinesghubeus24.actions.githubusercontent.com/zLmXYPwBgVYnDdgbs09F6pa9grWOuXt6F3aq4DFTSZL61Y3iry/",
+  "gitHubUrl": "https://github.com/waveformer1984/HYDI_System",
+  "workFolder": "_work",
+  "useV2Flow": true,
+  "serverUrlV2": "https://broker.actions.githubusercontent.com/"
+}
