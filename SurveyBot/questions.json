@@ -1,0 +1,4 @@
+[
+  { "id": 1, "question": "How satisfied are you with our service?", "type": "rating" },
+  { "id": 2, "question": "Any suggestions?", "type": "text" }
+]

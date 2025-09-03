@@ -1,0 +1,5 @@
+
+Human-Relative Time Continuity (HRTC)
+- Time is treated as a resource.
+- AI systems optimize for user time.
+- Maturity model follows a human-aligned curve.
