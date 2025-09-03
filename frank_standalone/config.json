@@ -1,0 +1,56 @@
+{
+  "frank": {
+    "name": "Frank Bot Standalone",
+    "version": "1.0.0",
+    "mode": "desktop",
+    "autoStart": true,
+    "port": 3001
+  },
+  "capabilities": {
+    "lexiconAnalyzer": {
+      "enabled": true,
+      "model": "advanced",
+      "raidIntegration": true
+    },
+    "systemIntegrator": {
+      "enabled": true,
+      "hydiSync": true,
+      "protoforgeSync": true
+    },
+    "automationOrchestrator": {
+      "enabled": true,
+      "workflowOptimization": true
+    },
+    "communicationHub": {
+      "enabled": true,
+      "nlpProcessing": true
+    },
+    "systemMonitor": {
+      "enabled": true,
+      "realTimeMetrics": true,
+      "alerting": true
+    }
+  },
+  "integration": {
+    "hydi": {
+      "autopilotSync": true,
+      "voiceLogProcessing": true,
+      "syncInterval": 30000
+    },
+    "raid": {
+      "lexiconSync": true,
+      "vocabularyAnalysis": true,
+      "syncInterval": 60000
+    },
+    "protoforge": {
+      "divisionSync": true,
+      "automationRules": true,
+      "syncInterval": 120000
+    }
+  },
+  "logging": {
+    "level": "info",
+    "file": "./logs/frank.log",
+    "console": true
+  }
+}

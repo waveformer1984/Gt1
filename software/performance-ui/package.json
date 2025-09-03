@@ -1,0 +1,12 @@
+{
+  "name": "performance-ui",
+  "version": "1.0.0",
+  "description": "REZONATE Performance UI",
+  "main": "main.py",
+  "scripts": {
+    "test": "echo 'No tests specified yet. Performance UI ready for testing framework.' && exit 0",
+    "dev": "python3 main.py"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

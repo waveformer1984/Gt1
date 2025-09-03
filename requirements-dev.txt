@@ -1,0 +1,67 @@
+# Development Dependencies for ProtoForge/REZONATE/Frank Systems
+# Install with: pip install -r requirements-dev.txt
+
+# ==============================================================================
+# Testing Framework
+# ==============================================================================
+pytest==7.4.3  # Testing framework
+pytest-asyncio==0.21.1  # Async test support
+pytest-benchmark==4.0.0  # Performance benchmarking
+pytest-cov==4.1.0  # Coverage reporting
+pytest-timeout==2.2.0  # Test timeout support
+pytest-mock==3.12.0  # Mock support
+hypothesis==6.92.1  # Property-based testing
+
+# ==============================================================================
+# Code Quality & Formatting
+# ==============================================================================
+black==23.12.1  # Code formatter
+ruff==0.1.9  # Fast Python linter
+mypy==1.7.1  # Static type checker
+isort==5.13.2  # Import sorting
+pylint==3.0.3  # Additional linting
+bandit==1.7.5  # Security linting
+
+# ==============================================================================
+# Pre-commit & Git Hooks
+# ==============================================================================
+pre-commit==3.6.0  # Git hook framework
+commitizen==3.13.0  # Conventional commits
+
+# ==============================================================================
+# Performance Profiling
+# ==============================================================================
+line-profiler==4.1.1  # Line-by-line profiling
+memory-profiler==0.61.0  # Memory profiling
+py-spy==0.3.14  # Sampling profiler
+scalene==1.5.31  # High-performance profiler
+snakeviz==2.2.0  # Profiling visualization
+
+# ==============================================================================
+# Load Testing
+# ==============================================================================
+locust==2.20.0  # Load testing framework
+artillery==2.0.0  # Load testing CLI
+
+# ==============================================================================
+# Documentation
+# ==============================================================================
+mkdocs==1.5.3  # Documentation generator
+mkdocs-material==9.5.3  # Material theme
+pdoc==14.3.0  # API documentation
+
+# ==============================================================================
+# Debugging & Development Tools
+# ==============================================================================
+ipdb==0.13.13  # IPython debugger
+ipython==8.19.0  # Enhanced Python shell
+jupyter==1.0.0  # Jupyter notebooks
+notebook==7.0.6  # Jupyter notebook interface
+httpie==3.2.2  # HTTP client for testing APIs
+
+# ==============================================================================
+# Type Stubs
+# ==============================================================================
+types-redis==4.6.0.11
+types-requests==2.31.0.10
+types-setuptools==69.0.0.0

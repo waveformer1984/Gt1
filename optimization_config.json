@@ -1,0 +1,229 @@
+{
+  "optimization": {
+    "name": "ProtoForge Desktop Suite - Optimization Configuration",
+    "version": "1.0.0",
+    "description": "Centralized performance and optimization settings for all components"
+  },
+  "caching": {
+    "redis": {
+      "enabled": true,
+      "host": "localhost",
+      "port": 6379,
+      "db": 0,
+      "password": null,
+      "socket_keepalive": true,
+      "socket_connect_timeout": 5,
+      "retry_on_timeout": true,
+      "health_check_interval": 30,
+      "max_connections": 50,
+      "decode_responses": true,
+      "connection_pool": {
+        "max_connections": 100,
+        "max_idle_time": 300,
+        "retry_on_error": true
+      }
+    },
+    "memory": {
+      "enabled": true,
+      "max_size": 1000,
+      "ttl_seconds": 300,
+      "cleanup_interval": 60,
+      "compression": true,
+      "serialization": "orjson"
+    },
+    "disk": {
+      "enabled": true,
+      "directory": ".cache",
+      "size_limit": "500MB",
+      "shards": 8,
+      "timeout": 0.01,
+      "statistics": true
+    },
+    "strategies": {
+      "api_responses": {
+        "ttl": 300,
+        "cache_errors": false,
+        "vary_by": ["user", "params"]
+      },
+      "database_queries": {
+        "ttl": 600,
+        "invalidate_on_write": true,
+        "batch_invalidation": true
+      },
+      "computation_results": {
+        "ttl": 3600,
+        "compress": true,
+        "lazy_compute": true
+      }
+    }
+  },
+  "performance": {
+    "async": {
+      "event_loop": "uvloop",
+      "max_workers": 4,
+      "thread_pool_size": 16,
+      "process_pool_size": 4,
+      "queue_size": 1000,
+      "batch_size": 50
+    },
+    "memory": {
+      "max_heap_size": 512,
+      "gc_threshold": [700, 10, 10],
+      "object_pool_size": 100,
+      "buffer_pool_size": 50,
+      "string_interning": true
+    },
+    "cpu": {
+      "affinity": "auto",
+      "priority": "normal",
+      "nice_level": 0,
+      "profile_enabled": false
+    },
+    "io": {
+      "buffer_size": 65536,
+      "use_sendfile": true,
+      "tcp_nodelay": true,
+      "tcp_keepalive": true,
+      "connection_timeout": 30,
+      "read_timeout": 60
+    }
+  },
+  "monitoring": {
+    "metrics": {
+      "enabled": true,
+      "interval": 60,
+      "retention_days": 7,
+      "export_format": "prometheus",
+      "port": 9090
+    },
+    "logging": {
+      "level": "INFO",
+      "format": "json",
+      "buffer_size": 1000,
+      "async": true,
+      "rotation": {
+        "enabled": true,
+        "max_size": "10MB",
+        "max_files": 5,
+        "compress": true
+      }
+    },
+    "alerts": {
+      "cpu_threshold": 80,
+      "memory_threshold": 85,
+      "disk_threshold": 90,
+      "response_time_threshold": 1000,
+      "error_rate_threshold": 5
+    },
+    "healthcheck": {
+      "enabled": true,
+      "interval": 30,
+      "timeout": 5,
+      "endpoints": [
+        "/health",
+        "/ready",
+        "/metrics"
+      ]
+    }
+  },
+  "scaling": {
+    "horizontal": {
+      "enabled": false,
+      "min_instances": 1,
+      "max_instances": 4,
+      "target_cpu": 70,
+      "target_memory": 75,
+      "scale_up_period": 60,
+      "scale_down_period": 300
+    },
+    "vertical": {
+      "auto_tune": true,
+      "memory_step": 128,
+      "cpu_step": 0.5
+    }
+  },
+  "network": {
+    "http": {
+      "keepalive": true,
+      "keepalive_timeout": 65,
+      "max_connections": 1000,
+      "compression": ["gzip", "br"],
+      "http2": true
+    },
+    "websocket": {
+      "ping_interval": 30,
+      "ping_timeout": 10,
+      "max_message_size": 1048576,
+      "compression": true
+    },
+    "rate_limiting": {
+      "enabled": true,
+      "window": 60,
+      "max_requests": 100,
+      "burst": 20,
+      "key_by": "ip"
+    }
+  },
+  "database": {
+    "connection_pool": {
+      "min_size": 5,
+      "max_size": 20,
+      "acquire_timeout": 10,
+      "idle_timeout": 300,
+      "max_lifetime": 3600
+    },
+    "query_optimization": {
+      "explain_threshold": 100,
+      "slow_query_log": true,
+      "cache_prepared_statements": true,
+      "batch_size": 1000
+    }
+  },
+  "security": {
+    "rate_limiting": {
+      "login_attempts": 5,
+      "api_calls": 1000,
+      "window_minutes": 15
+    },
+    "cors": {
+      "enabled": true,
+      "origins": ["http://localhost:3000"],
+      "credentials": true
+    },
+    "headers": {
+      "hsts": true,
+      "nosniff": true,
+      "xss_protection": true,
+      "frame_options": "DENY"
+    }
+  },
+  "features": {
+    "progressive_enhancement": true,
+    "lazy_loading": true,
+    "code_splitting": true,
+    "tree_shaking": true,
+    "minification": true,
+    "source_maps": false,
+    "hot_reload": false,
+    "service_worker": true
+  },
+  "environment_overrides": {
+    "development": {
+      "caching.redis.enabled": false,
+      "monitoring.metrics.enabled": false,
+      "features.source_maps": true,
+      "features.hot_reload": true,
+      "performance.cpu.profile_enabled": true
+    },
+    "production": {
+      "logging.level": "WARNING",
+      "features.minification": true,
+      "network.rate_limiting.enabled": true,
+      "security.headers": {
+        "hsts": true,
+        "hsts_max_age": 31536000,
+        "hsts_include_subdomains": true
+      }
+    }
+  }
+}

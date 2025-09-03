@@ -1,0 +1,5 @@
+
+1. Open folder
+2. Install extensions
+3. Set up launch.json
+4. Configure terminal
