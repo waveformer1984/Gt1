@@ -1,0 +1,75 @@
+{
+  "summary": {
+    "total_tests": 9,
+    "passed": 3,
+    "failed": 6,
+    "skipped": 0,
+    "total_duration": 0.1991136074066162,
+    "timestamp": "2025-08-02 16:10:35"
+  },
+  "results": [
+    {
+      "test_name": "Environment Setup",
+      "status": "PASS",
+      "duration": 2.1934014512225986e-05,
+      "message": "Python 3.13, all required files present",
+      "details": null
+    },
+    {
+      "test_name": "Dependencies Check",
+      "status": "PASS",
+      "duration": 0.1772719399887137,
+      "message": "All 7 required packages available",
+      "details": null
+    },
+    {
+      "test_name": "Configuration Loading",
+      "status": "FAIL",
+      "duration": 0.017897817015182227,
+      "message": "Failed to load configuration: 'Settings' object has no attribute 'ENABLE_PERFORMANCE_MONITORING'",
+      "details": null
+    },
+    {
+      "test_name": "FastAPI App Creation",
+      "status": "FAIL",
+      "duration": 0.00012572298874147236,
+      "message": "Failed to create FastAPI app: 'Settings' object has no attribute 'ENABLE_PERFORMANCE_MONITORING'",
+      "details": null
+    },
+    {
+      "test_name": "API Endpoints Discovery",
+      "status": "FAIL",
+      "duration": 8.500699186697602e-05,
+      "message": "Failed to discover endpoints: 'Settings' object has no attribute 'ENABLE_PERFORMANCE_MONITORING'",
+      "details": null
+    },
+    {
+      "test_name": "Performance Monitoring",
+      "status": "FAIL",
+      "duration": 8.433801122009754e-05,
+      "message": "Performance monitoring test failed: 'Settings' object has no attribute 'ENABLE_PERFORMANCE_MONITORING'",
+      "details": null
+    },
+    {
+      "test_name": "Caching System",
+      "status": "PASS",
+      "duration": 0.0031761089921928942,
+      "message": "Cache manager structure validated",
+      "details": null
+    },
+    {
+      "test_name": "Security Configurations",
+      "status": "FAIL",
+      "duration": 0.00011978799011558294,
+      "message": "Security test failed: 'Settings' object has no attribute 'ENABLE_PERFORMANCE_MONITORING'",
+      "details": null
+    },
+    {
+      "test_name": "App Startup",
+      "status": "FAIL",
+      "duration": 8.085198351182044e-05,
+      "message": "Startup test failed: 'Settings' object has no attribute 'ENABLE_PERFORMANCE_MONITORING'",
+      "details": null
+    }
+  ]
+}

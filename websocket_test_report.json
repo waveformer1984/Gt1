@@ -1,0 +1,39 @@
+{
+  "websocket_testing_summary": {
+    "total_tests": 4,
+    "passed_tests": 0,
+    "failed_tests": 4,
+    "success_rate": 0.0,
+    "timestamp": "2025-08-02 16:09:08"
+  },
+  "test_results": [
+    {
+      "test": "websocket_connection",
+      "status": "FAIL",
+      "connection_time": 0.002206098986789584,
+      "error": "BaseEventLoop.create_connection() got an unexpected keyword argument 'timeout'",
+      "success": false
+    },
+    {
+      "test": "websocket_metrics_streaming",
+      "status": "FAIL",
+      "error": "BaseEventLoop.create_connection() got an unexpected keyword argument 'timeout'",
+      "success": false
+    },
+    {
+      "test": "websocket_concurrent_connections",
+      "status": "FAIL",
+      "total_attempted": 3,
+      "successful_connections": 0,
+      "failed_connections": 3,
+      "average_connection_time": 0,
+      "success": false
+    },
+    {
+      "test": "websocket_data_integrity",
+      "status": "FAIL",
+      "error": "BaseEventLoop.create_connection() got an unexpected keyword argument 'timeout'",
+      "success": false
+    }
+  ]
+}

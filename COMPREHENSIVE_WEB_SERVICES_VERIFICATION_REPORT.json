@@ -1,0 +1,587 @@
+{
+  "report_metadata": {
+    "title": "ballsDeepnit Web Services Comprehensive Verification Report",
+    "generated_at": "2025-08-02 16:11:29",
+    "report_version": "1.0",
+    "total_test_suites": 3
+  },
+  "executive_summary": {
+    "overall_status": "PARTIALLY_OPERATIONAL",
+    "status_description": "Most web services are working but some issues were detected",
+    "key_metrics": {
+      "api_success_rate": 100.0,
+      "avg_response_time_ms": 28.359001464335822,
+      "load_test_rps": 1321.3718172253293,
+      "security_score": 100.0,
+      "performance_score": 100.0
+    },
+    "critical_issues": [
+      "\u26a0\ufe0f  Web Services Verification has some failures"
+    ],
+    "recommendations": [
+      "\ud83d\udd27 Complete web services setup - some core components are not fully functional",
+      "\ud83d\udd0c WebSocket functionality needs attention - real-time features may not work"
+    ]
+  },
+  "detailed_analyses": {
+    "web_services_verification": {
+      "status": "PARTIAL",
+      "total_tests": 9,
+      "passed": 3,
+      "failed": 6,
+      "success_rate": 33.33333333333333,
+      "key_findings": [
+        "\u2705 Environment Setup passed",
+        "\u2705 Dependencies Check passed",
+        "\u274c Configuration Loading failed: Failed to load configuration: 'Settings' object has no attribute 'ENABLE_PERFORMANCE_MONITORING'",
+        "\u274c FastAPI App Creation failed: Failed to create FastAPI app: 'Settings' object has no attribute 'ENABLE_PERFORMANCE_MONITORING'",
+        "\u274c API Endpoints Discovery failed: Failed to discover endpoints: 'Settings' object has no attribute 'ENABLE_PERFORMANCE_MONITORING'",
+        "\u274c Performance Monitoring failed: Performance monitoring test failed: 'Settings' object has no attribute 'ENABLE_PERFORMANCE_MONITORING'",
+        "\u2705 Caching System passed",
+        "\u274c Security Configurations failed: Security test failed: 'Settings' object has no attribute 'ENABLE_PERFORMANCE_MONITORING'",
+        "\u274c App Startup failed: Startup test failed: 'Settings' object has no attribute 'ENABLE_PERFORMANCE_MONITORING'"
+      ]
+    },
+    "api_endpoint_tests": {
+      "status": "PASS",
+      "endpoint_tests": {
+        "total": 13,
+        "successful": 13,
+        "failed": 0,
+        "success_rate": 100.0,
+        "avg_response_time": 0.02835900146433582
+      },
+      "load_test": {
+        "requests_per_second": 1321.3718172253293,
+        "success_rate": 100.0,
+        "total_requests": 50
+      },
+      "websocket_status": "SKIPPED"
+    },
+    "security_performance": {
+      "status": "PASS",
+      "overall_success_rate": 100.0,
+      "security": {
+        "passed": 3,
+        "total": 3,
+        "status": "PASS"
+      },
+      "performance": {
+        "passed": 3,
+        "total": 3,
+        "status": "PASS"
+      }
+    }
+  },
+  "test_coverage": {
+    "core_functionality": "PARTIAL",
+    "api_endpoints": "PASS",
+    "security": "PASS",
+    "performance": "PASS",
+    "websocket_support": "SKIPPED"
+  },
+  "raw_data": {
+    "web_services_verification_report.json": {
+      "summary": {
+        "total_tests": 9,
+        "passed": 3,
+        "failed": 6,
+        "skipped": 0,
+        "total_duration": 0.1991136074066162,
+        "timestamp": "2025-08-02 16:10:35"
+      },
+      "results": [
+        {
+          "test_name": "Environment Setup",
+          "status": "PASS",
+          "duration": 2.1934014512225986e-05,
+          "message": "Python 3.13, all required files present",
+          "details": null
+        },
+        {
+          "test_name": "Dependencies Check",
+          "status": "PASS",
+          "duration": 0.1772719399887137,
+          "message": "All 7 required packages available",
+          "details": null
+        },
+        {
+          "test_name": "Configuration Loading",
+          "status": "FAIL",
+          "duration": 0.017897817015182227,
+          "message": "Failed to load configuration: 'Settings' object has no attribute 'ENABLE_PERFORMANCE_MONITORING'",
+          "details": null
+        },
+        {
+          "test_name": "FastAPI App Creation",
+          "status": "FAIL",
+          "duration": 0.00012572298874147236,
+          "message": "Failed to create FastAPI app: 'Settings' object has no attribute 'ENABLE_PERFORMANCE_MONITORING'",
+          "details": null
+        },
+        {
+          "test_name": "API Endpoints Discovery",
+          "status": "FAIL",
+          "duration": 8.500699186697602e-05,
+          "message": "Failed to discover endpoints: 'Settings' object has no attribute 'ENABLE_PERFORMANCE_MONITORING'",
+          "details": null
+        },
+        {
+          "test_name": "Performance Monitoring",
+          "status": "FAIL",
+          "duration": 8.433801122009754e-05,
+          "message": "Performance monitoring test failed: 'Settings' object has no attribute 'ENABLE_PERFORMANCE_MONITORING'",
+          "details": null
+        },
+        {
+          "test_name": "Caching System",
+          "status": "PASS",
+          "duration": 0.0031761089921928942,
+          "message": "Cache manager structure validated",
+          "details": null
+        },
+        {
+          "test_name": "Security Configurations",
+          "status": "FAIL",
+          "duration": 0.00011978799011558294,
+          "message": "Security test failed: 'Settings' object has no attribute 'ENABLE_PERFORMANCE_MONITORING'",
+          "details": null
+        },
+        {
+          "test_name": "App Startup",
+          "status": "FAIL",
+          "duration": 8.085198351182044e-05,
+          "message": "Startup test failed: 'Settings' object has no attribute 'ENABLE_PERFORMANCE_MONITORING'",
+          "details": null
+        }
+      ]
+    },
+    "api_endpoint_test_report.json": {
+      "test_type": "Comprehensive API Testing",
+      "timestamp": "2025-08-02 16:08:11",
+      "server_startup": "SUCCESS",
+      "api_endpoint_tests": {
+        "summary": {
+          "total_endpoints_tested": 13,
+          "successful_tests": 13,
+          "failed_tests": 0,
+          "success_rate": 100.0,
+          "average_response_time": 0.02835900146433582,
+          "timestamp": "2025-08-02 16:08:11"
+        },
+        "detailed_results": [
+          {
+            "endpoint": "GET /health",
+            "description": "Health check endpoint",
+            "expected_status": 200,
+            "actual_status": 200,
+            "success": true,
+            "duration": 0.0010696479876060039,
+            "response_sample": {
+              "status": "healthy",
+              "timestamp": 1754150889.5132368,
+              "version": "1.0.0"
+            },
+            "error": null
+          },
+          {
+            "endpoint": "GET /api/system/status",
+            "description": "Get system status",
+            "expected_status": 200,
+            "actual_status": 200,
+            "success": true,
+            "duration": 0.001449363975552842,
+            "response_sample": "{'system': {'cpu_percent': 25.5, 'memory_percent': 65.2, 'memory_available_gb': 8.4, 'disk_free_gb': 500.2, 'uptime_seconds': 3600}, 'process': {'memory_rss_mb': 128.5, 'memory_vms_mb': 256.8, 'thread...",
+            "error": null
+          },
+          {
+            "endpoint": "GET /api/performance/metrics",
+            "description": "Get performance metrics",
+            "expected_status": 200,
+            "actual_status": 200,
+            "success": true,
+            "duration": 0.0011277300072833896,
+            "response_sample": {
+              "cpu_usage": 29.716591596603394,
+              "memory_usage": 65.2,
+              "request_count": 1251,
+              "response_time_avg": 0.045,
+              "error_rate": 0.02,
+              "timestamp": 1754150889.7165906
+            },
+            "error": null
+          },
+          {
+            "endpoint": "GET /api/performance/memory",
+            "description": "Get memory information",
+            "expected_status": 200,
+            "actual_status": 200,
+            "success": true,
+            "duration": 0.0012002660077996552,
+            "response_sample": {
+              "total_memory_mb": 16384,
+              "used_memory_mb": 10689,
+              "available_memory_mb": 5695,
+              "memory_percent": 65.2,
+              "swap_total_mb": 2048,
+              "swap_used_mb": 512,
+              "timestamp": 1754150889.818036
+            },
+            "error": null
+          },
+          {
+            "endpoint": "POST /api/performance/optimize",
+            "description": "Trigger performance optimization",
+            "expected_status": 200,
+            "actual_status": 200,
+            "success": true,
+            "duration": 0.102675137022743,
+            "response_sample": {
+              "message": "Performance optimization completed",
+              "optimizations_applied": [
+                "garbage_collection",
+                "memory_defragmentation",
+                "cache_cleanup"
+              ],
+              "timestamp": 1754150890.0208921
+            },
+            "error": null
+          },
+          {
+            "endpoint": "GET /api/plugins",
+            "description": "Get available plugins",
+            "expected_status": 200,
+            "actual_status": 200,
+            "success": true,
+            "duration": 0.0012210069980937988,
+            "response_sample": "{'plugins': [{'name': 'voice_recognition', 'status': 'active', 'version': '1.2.0'}, {'name': 'midi_controller', 'status': 'active', 'version': '2.1.0'}, {'name': 'obd2_monitor', 'status': 'inactive', ...",
+            "error": null
+          },
+          {
+            "endpoint": "POST /api/plugins/voice_recognition/reload",
+            "description": "Reload voice recognition plugin",
+            "expected_status": 200,
+            "actual_status": 200,
+            "success": true,
+            "duration": 0.20224307698663324,
+            "response_sample": {
+              "message": "Plugin voice_recognition reloaded successfully",
+              "plugin_name": "voice_recognition",
+              "reload_time": 0.2,
+              "timestamp": 1754150890.42484
+            },
+            "error": null
+          },
+          {
+            "endpoint": "GET /api/config",
+            "description": "Get application configuration",
+            "expected_status": 200,
+            "actual_status": 200,
+            "success": true,
+            "duration": 0.001287870021769777,
+            "response_sample": "{'app_name': 'ballsDeepnit', 'version': '1.0.0', 'debug': True, 'features': {'hot_reload': True, 'voice_triggers': True, 'midi_triggers': True, 'web_dashboard': True}, 'performance': {'max_workers': 8...",
+            "error": null
+          },
+          {
+            "endpoint": "PUT /api/config",
+            "description": "Update configuration",
+            "expected_status": 200,
+            "actual_status": 200,
+            "success": true,
+            "duration": 0.0013922860089223832,
+            "response_sample": {
+              "message": "Configuration updated successfully",
+              "updated_fields": [
+                "debug",
+                "max_workers"
+              ],
+              "timestamp": 1754150890.62851
+            },
+            "error": null
+          },
+          {
+            "endpoint": "GET /api/cache/stats",
+            "description": "Get cache statistics",
+            "expected_status": 200,
+            "actual_status": 200,
+            "success": true,
+            "duration": 0.001200032013002783,
+            "response_sample": {
+              "total_keys": 1250,
+              "hit_rate": 0.87,
+              "miss_rate": 0.13,
+              "memory_usage_mb": 45.2,
+              "oldest_entry_age": 3600,
+              "newest_entry_age": 0.5,
+              "timestamp": 1754150890.7299187
+            },
+            "error": null
+          },
+          {
+            "endpoint": "DELETE /api/cache",
+            "description": "Clear cache",
+            "expected_status": 200,
+            "actual_status": 200,
+            "success": true,
+            "duration": 0.0513585900189355,
+            "response_sample": {
+              "message": "Cache cleared successfully",
+              "keys_removed": 1250,
+              "timestamp": 1754150890.881534
+            },
+            "error": null
+          },
+          {
+            "endpoint": "GET /api/nonexistent",
+            "description": "Test 404 error handling",
+            "expected_status": 404,
+            "actual_status": 404,
+            "success": true,
+            "duration": 0.0013499879860319197,
+            "response_sample": {
+              "error": "Not found",
+              "path": "/api/nonexistent"
+            },
+            "error": "HTTP Error 404: Not Found"
+          },
+          {
+            "endpoint": "PATCH /health",
+            "description": "Test method not allowed",
+            "expected_status": 405,
+            "actual_status": 405,
+            "success": true,
+            "duration": 0.0010920240019913763,
+            "response_sample": {
+              "detail": "Method Not Allowed"
+            },
+            "error": "HTTP Error 405: Method Not Allowed"
+          }
+        ]
+      },
+      "websocket_tests": {
+        "websocket_test": "SKIPPED",
+        "reason": "websockets library not available",
+        "success": false
+      },
+      "load_tests": {
+        "total_requests": 50,
+        "successful_requests": 50,
+        "failed_requests": 0,
+        "success_rate": 100.0,
+        "total_duration": 0.037839463009731844,
+        "requests_per_second": 1321.3718172253293,
+        "avg_response_time": 0.0007397432206198573,
+        "min_response_time": 0.0005382630042731762,
+        "max_response_time": 0.0011617080017458647,
+        "concurrent_requests": 5
+      }
+    },
+    "websocket_test_report.json": {
+      "websocket_testing_summary": {
+        "total_tests": 4,
+        "passed_tests": 0,
+        "failed_tests": 4,
+        "success_rate": 0.0,
+        "timestamp": "2025-08-02 16:09:08"
+      },
+      "test_results": [
+        {
+          "test": "websocket_connection",
+          "status": "FAIL",
+          "connection_time": 0.002206098986789584,
+          "error": "BaseEventLoop.create_connection() got an unexpected keyword argument 'timeout'",
+          "success": false
+        },
+        {
+          "test": "websocket_metrics_streaming",
+          "status": "FAIL",
+          "error": "BaseEventLoop.create_connection() got an unexpected keyword argument 'timeout'",
+          "success": false
+        },
+        {
+          "test": "websocket_concurrent_connections",
+          "status": "FAIL",
+          "total_attempted": 3,
+          "successful_connections": 0,
+          "failed_connections": 3,
+          "average_connection_time": 0,
+          "success": false
+        },
+        {
+          "test": "websocket_data_integrity",
+          "status": "FAIL",
+          "error": "BaseEventLoop.create_connection() got an unexpected keyword argument 'timeout'",
+          "success": false
+        }
+      ]
+    },
+    "security_performance_test_report.json": {
+      "test_type": "Comprehensive Security and Performance Testing",
+      "timestamp": "2025-08-02 16:10:30",
+      "summary": {
+        "total_tests": 6,
+        "passed_tests": 6,
+        "failed_tests": 0,
+        "success_rate": 100.0
+      },
+      "security_tests": {
+        "results": [
+          {
+            "test": "cors_headers",
+            "status": "PASS",
+            "cors_headers": {
+              "access_control_allow_origin": false,
+              "access_control_allow_methods": false,
+              "access_control_allow_headers": false,
+              "origin_value": ""
+            },
+            "security_issues": [],
+            "success": true
+          },
+          {
+            "test": "error_handling",
+            "status": "PASS",
+            "successful_cases": 3,
+            "total_cases": 3,
+            "test_results": [
+              {
+                "case": "404_error",
+                "expected_status": 404,
+                "actual_status": 404,
+                "success": true,
+                "has_error_field": true,
+                "no_stack_trace": true,
+                "secure_error": true
+              },
+              {
+                "case": "405_method_not_allowed",
+                "expected_status": 405,
+                "actual_status": 405,
+                "success": true,
+                "has_error_field": false,
+                "no_stack_trace": true,
+                "secure_error": false
+              },
+              {
+                "case": "invalid_json",
+                "expected_status": 422,
+                "actual_status": 422,
+                "success": true,
+                "has_error_field": false,
+                "no_stack_trace": true,
+                "secure_error": false
+              }
+            ],
+            "success": true
+          },
+          {
+            "test": "input_validation",
+            "status": "PASS",
+            "test_results": [
+              {
+                "case": "sql_injection",
+                "status_code": 200,
+                "success": true,
+                "handled_safely": true
+              },
+              {
+                "case": "xss_attempt",
+                "status_code": 200,
+                "success": true,
+                "handled_safely": true
+              },
+              {
+                "case": "command_injection",
+                "status_code": 200,
+                "success": true,
+                "handled_safely": true
+              },
+              {
+                "case": "large_payload",
+                "status_code": 200,
+                "success": true,
+                "handled_safely": true
+              }
+            ],
+            "success": true
+          }
+        ],
+        "passed": 3,
+        "total": 3
+      },
+      "performance_tests": {
+        "results": [
+          {
+            "test": "response_times",
+            "status": "PASS",
+            "overall_average": 0.0007604560395702719,
+            "fast_responses": 5,
+            "total_endpoints": 5,
+            "endpoint_details": {
+              "/health": {
+                "avg": 0.0009068918065167963,
+                "min": 0.0007027440005913377,
+                "max": 0.0011272759875282645,
+                "samples": 5
+              },
+              "/api/system/status": {
+                "avg": 0.0008356436039321125,
+                "min": 0.0005622500029858202,
+                "max": 0.00112537297536619,
+                "samples": 5
+              },
+              "/api/performance/metrics": {
+                "avg": 0.000567175995092839,
+                "min": 0.000530210993019864,
+                "max": 0.0006128049863036722,
+                "samples": 5
+              },
+              "/api/config": {
+                "avg": 0.0008225255995057523,
+                "min": 0.0005457729857880622,
+                "max": 0.0012390459887683392,
+                "samples": 5
+              },
+              "/api/cache/stats": {
+                "avg": 0.0006700431928038597,
+                "min": 0.0005702939815819263,
+                "max": 0.0008512340136803687,
+                "samples": 5
+              }
+            },
+            "success": true
+          },
+          {
+            "test": "concurrent_load",
+            "status": "PASS",
+            "total_requests": 100,
+            "successful_requests": 100,
+            "failed_requests": 0,
+            "success_rate": 100.0,
+            "total_duration": 0.061181329016108066,
+            "requests_per_second": 1634.4855793124664,
+            "avg_response_time": 0.0005979423204553314,
+            "min_response_time": 0.0004361259925644845,
+            "max_response_time": 0.0011450940219219774,
+            "p95_response_time": 0.0009954349952749908,
+            "concurrent_level": 20,
+            "success": true
+          },
+          {
+            "test": "memory_usage",
+            "status": "PASS",
+            "initial_memory_mb": 10689,
+            "final_memory_mb": 10689,
+            "memory_increase_mb": 0,
+            "memory_percent": 65.2,
+            "potential_leak": false,
+            "high_usage": false,
+            "success": true
+          }
+        ],
+        "passed": 3,
+        "total": 3
+      }
+    }
+  }
+}
