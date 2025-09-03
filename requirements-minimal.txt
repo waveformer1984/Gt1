@@ -1,0 +1,18 @@
+# Minimal Production Requirements
+# Ultra-lightweight for containerized deployments
+# Install with: pip install -r requirements-minimal.txt --no-cache-dir
+
+# Core Framework (choose one based on your service)
+fastapi==0.104.1
+uvicorn[standard]==0.24.0.post1
+
+# Essential Dependencies Only
+pydantic==2.5.2
+python-dotenv==1.0.0
+orjson==3.9.10  # Fast JSON
+
+# Choose based on your needs:
+# For Redis caching: redis[hiredis]==5.0.1
+# For async HTTP: aiohttp==3.9.1
+# For WebSockets: websockets==12.0
+# For MIDI: python-rtmidi==1.5.8
