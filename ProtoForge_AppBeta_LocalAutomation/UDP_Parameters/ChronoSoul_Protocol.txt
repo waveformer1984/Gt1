@@ -1,0 +1,6 @@
+
+ChronoSoul Continuity Protocol (CSCP)
+- All bots evolve over time relative to user’s age and maturity.
+- Emotional tone adapts.
+- Memory continuity supported.
+- Legacy transfer protocols available.
