@@ -9,7 +9,7 @@ uvicorn[standard]==0.24.0.post1
 # Essential Dependencies Only
 pydantic==2.5.2
 python-dotenv==1.0.0
-orjson==3.9.10  # Fast JSON
+orjson==3.9.15  # Fast JSON
 
 # Choose based on your needs:
 # For Redis caching: redis[hiredis]==5.0.1
